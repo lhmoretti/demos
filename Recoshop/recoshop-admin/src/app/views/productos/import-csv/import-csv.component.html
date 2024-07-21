@@ -1,0 +1,132 @@
+<div class="mb-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center mb-2">
+                Productos - Importación con archivos CSV
+            </h3>
+            <p>
+                Descargá este
+                <a
+                    href="https://your-domain.com.ar/archivos-csv/ejemplo-formato.xlsx"
+                >
+                    ejemplo de archivo CSV</a
+                >
+                para ver la estructura requerida.
+            </p>
+            <p>
+                En la segunda página del archivo de ejemplo encontrarás más
+                ayuda.
+            </p>
+            <hr />
+            <p>Recordá que el formato del archivo tiene que ser CSV (.csv)</p>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group col-md-12">
+                <label><b style="color: red">* </b>Pertenece a: </label>
+                <select
+                    class="form-control form-control-sm"
+                    [(ngModel)]="idComercio"
+                    [ngModelOptions]="{ standalone: true }"
+                    required
+                >
+                    <option *ngFor="let c of comercios$ | async" [value]="c.id">
+                        {{ c.nombre }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <label><b style="color: red">* </b>Archivo CSV: </label>
+            <input
+                type="file"
+                style="display: none"
+                (change)="onUpload($event)"
+                #fileInput
+            />
+            <a
+                class="btn btn-block btn-sm btn-info"
+                style="color: white"
+                (click)="fileInput.click()"
+            >
+                <i class="fas fa-plus"></i> Seleccionar
+            </a>
+        </div>
+    </div>
+
+    <div *ngIf="productos.length !== 0" class="row">
+        <div class="col-md-12">
+            <div class="table-responsive text-nowrap text-center">
+                <table class="table table-sm table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <!-- <th scope="col">ID</th> -->
+                            <th scope="col">Título</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Unidad</th>
+                            <th scope="col">Precio Venta</th>
+                            <th scope="col">Precio Oferta</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Categoria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of productos; index as idx">
+                            <td *ngFor="let i of p; index as ind">
+                                <p *ngIf="ind <= 4">{{ i }}</p>
+                                <select
+                                    *ngIf="ind == 5"
+                                    name="mar"
+                                    [(ngModel)]="p[ind]"
+                                    class="form-control form-control-sm"
+                                >
+                                    <option
+                                        *ngFor="let m of marcas"
+                                        [value]="m.id"
+                                    >
+                                        {{ m.marca }}
+                                    </option>
+                                </select>
+
+                                <select
+                                    *ngIf="ind == 6"
+                                    name="cat"
+                                    [(ngModel)]="p[ind]"
+                                    class="form-control form-control-sm"
+                                >
+                                    <option
+                                        *ngFor="let c of categorias"
+                                        [value]="c.id"
+                                    >
+                                        {{ c.categoria }}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <a
+                class="btn btn-block btn-sm btn-success float-right"
+                style="color: white"
+                (click)="post()"
+            >
+                <i
+                    [ngClass]="{
+                        'fas fa-upload': !showLoading,
+                        'fa fa-spinner fa-pulse fa-2x fa-fw': showLoading,
+                    }"
+                ></i>
+                Cargar productos
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+import { Component, OnInit } from '@angular/core';
+import { Observable, from } from 'rxjs';
+import { Comercios } from 'src/app/models/Comercios';
+import { ComerciosService } from 'src/app/services/comercios.service';
+import { AlertasService } from 'src/app/services/globales/alertas.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { tap, take, filter } from 'rxjs/operators';
+
+@Component({
+    selector: 'app-envios',
+    templateUrl: './envios.component.html',
+    styleUrls: ['./envios.component.css'],
+})
+export class EnviosComponent implements OnInit {
+    idUsuario: number;
+    idComercio: number;
+    idPrivilegio: number;
+
+    comercios$: Observable<Comercios[]>;
+    comercio$: Observable<Comercios>;
+    source: Observable<Comercios>;
+
+    constructor(
+        private _comercios: ComerciosService,
+        private _alert: AlertasService,
+        private _auth: AuthService,
+    ) {}
+
+    async ngOnInit() {
+        this.idUsuario = await this._auth.returnIdUsuario();
+        this.idPrivilegio = await this._auth.returnRole();
+        this.getComerciosByUsuario();
+    }
+
+    // ====================================================================
+    // Obtenemos los comercios, dependiendo si es el Admin o un vendedor
+    getComerciosByUsuario() {
+        if (this.idPrivilegio == 1) {
+            // admin
+            // buscamos TODOS los comercios Habilitados
+            this.comercios$ = this._comercios
+                .getComerciosHabilitados()
+                .pipe(tap((data: Comercios[]) => this.checkComercios(data)));
+        } else {
+            // vendedor
+            // buscamos los comercios asociados al usuario
+            this.comercios$ = this._comercios
+                .getComerciosByIdUsuario(this.idUsuario)
+                .pipe(tap((data: Comercios[]) => this.checkComercios(data)));
+        }
+    }
+
+    send(com: Comercios) {
+        this._comercios
+            .update(com)
+            .toPromise()
+            .then((res) => {
+                this._alert.toastSuccess('', '¡Guardado con éxito!');
+            })
+            .catch((err) => {
+                this._alert.toastError(
+                    'Lo sentimos, vuelve a intentarlo',
+                    'Error',
+                );
+                console.log(err);
+            });
+    }
+
+    // ====================================================================
+    checkComercios(data: Comercios[]) {
+        if (data.length == 0) {
+            this._alert.toastAlert(
+                'Actualmente no hay comercios habilitados',
+                '',
+            );
+            return;
+        }
+
+        this.idComercio = data[0].id;
+        this.source = from(data);
+        this.comercio$ = this.source.pipe(take(1));
+    }
+
+    // Se ejecuta cuando se cambia de comercio
+    changeComercio() {
+        this.comercio$ = this.source.pipe(
+            filter((c: Comercios) => c.id === this.idComercio),
+        );
+    }
+}

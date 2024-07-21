@@ -1,0 +1,186 @@
+<div class=" ">
+    <div class="footer">
+        <div class="bg-footer">
+            <div class="container">
+                <div class="row p-3">
+                    <div class="col-md-3 text-light">
+                        <h4 class="ml-4">Sobre nosotros</h4>
+                        <ul class="float-left">
+                            <li
+                                class="li-informacion"
+                                [routerLink]="['/contactanos']"
+                                routerLinkActive="router-link-active"
+                            >
+                                <a></a>
+                            </li>
+                            <li
+                                class="li-informacion"
+                                [routerLink]="['/sobre-nosotros']"
+                                routerLinkActive="router-link-active"
+                            >
+                                <a>Sobre nosotros</a>
+                            </li>
+                            <li
+                                class="li-informacion"
+                                [routerLink]="['/vision']"
+                                routerLinkActive="router-link-active"
+                            >
+                                <a>Nuestra visión</a>
+                            </li>
+                            <li
+                                class="li-informacion"
+                                [routerLink]="['/contactanos']"
+                                routerLinkActive="router-link-active"
+                            >
+                                <a>Contáctanos</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 text-light">
+                        <h4 class="ml-4">Información</h4>
+                        <ul class="float-left">
+                            <li
+                                class="li-informacion"
+                                [routerLink]="['/login']"
+                                routerLinkActive="router-link-active"
+                            >
+                                <a>Comenzar a Vender</a>
+                            </li>
+                            <li
+                                class="li-informacion"
+                                [routerLink]="['/preguntas-frecuentes']"
+                                routerLinkActive="router-link-active"
+                            >
+                                <a>Preguntas frecuentes</a>
+                            </li>
+                            <li
+                                class="li-informacion"
+                                [routerLink]="['/medios-pagos']"
+                                routerLinkActive="router-link-active"
+                            >
+                                <a>Medios de pago</a>
+                            </li>
+                            <li
+                                class="li-informacion"
+                                [routerLink]="['/envios']"
+                                routerLinkActive="router-link-active"
+                            >
+                                <a>Envios</a>
+                            </li>
+                            <li
+                                class="li-informacion"
+                                [routerLink]="['/terminos-condiciones']"
+                                routerLinkActive="router-link-active"
+                            >
+                                <a>Términos y condiciones</a>
+                            </li>
+                            <li
+                                class="li-informacion"
+                                [routerLink]="['/como-comprar']"
+                                routerLinkActive="router-link-active"
+                            >
+                                <a>Cómo comprar</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3 text-light">
+                        <h4 class="ml-4">¡Suscribite a nuestro newsletter!</h4>
+                        <div class="col-md-12 m-2">
+                            <input
+                                type="form-control form-control-sm"
+                                [(ngModel)]="suscripcion.nombre"
+                                placeholder="Tu nombre"
+                            />
+                        </div>
+                        <div class="col-md-12 m-2">
+                            <input
+                                type="form-control form-control-sm"
+                                [(ngModel)]="suscripcion.email"
+                                placeholder="Email"
+                            />
+                        </div>
+                        <div class="col-md-12 m-2">
+                            <button
+                                class="btn btn-sm bg-orange"
+                                (click)="postSuscrip()"
+                            >
+                                Suscribirme
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 text-light text-center">
+                        <h4 class="ml-4">¡Seguinos en las redes!</h4>
+                        <a target="_blank" href="https://www.facebook.com/">
+                            <i
+                                style="
+                                    margin: 30px 10px 0 10px;
+                                    display: inline;
+                                "
+                                class="fab fa-facebook fa-2x"
+                            ></i>
+                        </a>
+                        <a target="_blank" href="https://www.instagram.com/">
+                            <i
+                                style="
+                                    margin: 30px 10px 0 10px;
+                                    display: inline;
+                                "
+                                class="fab fa-instagram-square fa-2x"
+                            ></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid bg-logo">
+            <div class="container text-center pt-3 pb-3 footer-logos">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img
+                            class="img-logo"
+                            src="assets/imgs/logo-recoshop.png"
+                            alt=""
+                            srcset=""
+                        />
+                    </div>
+                    <div class="col-md-3">
+                        <span
+                            >Una iniciativa de
+                            <img
+                                style="display: block"
+                                class="img-logo-2"
+                                src="assets/imgs/logo-ser-digital-recoshop.png"
+                                alt=""
+                                srcset=""
+                            />
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <span
+                            >Con la participación de
+                            <img
+                                style="display: block"
+                                class="img-logo-2"
+                                src="assets/imgs/logo-centro-industrial-comercial-reconquista.png"
+                                alt=""
+                                srcset=""
+                        /></span>
+                    </div>
+                    <div class="col-md-3">
+                        <span
+                            >Partner<img
+                                style="display: block"
+                                class="img-logo-2"
+                                src="assets/imgs/recoshop-partner.png"
+                                alt=""
+                                srcset=""
+                        /></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

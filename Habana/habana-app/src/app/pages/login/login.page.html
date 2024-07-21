@@ -1,0 +1,54 @@
+<ion-content class="ion-text-center">
+    <ion-card>
+        <ion-card-content class="ion-text-center">
+            <form (ngSubmit)="login(fLogin)" #fLogin="ngForm">
+                <img
+                    class="img-size"
+                    src="assets/img/logo_app_habana.png"
+                    alt=""
+                />
+
+                <ion-row>
+                    <ion-col size="3"> </ion-col>
+                    <ion-col size="6">
+                        <ion-list>
+                            <ion-item>
+                                <ion-label position="floating"
+                                    >Usuario</ion-label
+                                >
+                                <ion-input
+                                    name="userlog"
+                                    [(ngModel)]="UserLogin.username"
+                                    type="text"
+                                    required
+                                ></ion-input>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-label position="floating"
+                                    >Contraseña</ion-label
+                                >
+                                <ion-input
+                                    name="passlog"
+                                    [(ngModel)]="UserLogin.password"
+                                    type="password"
+                                    required
+                                ></ion-input>
+                            </ion-item>
+
+                            <ion-button
+                                style="margin-top: 15px"
+                                type="submit"
+                                expand="block"
+                            >
+                                Iniciar sesión
+                            </ion-button>
+                        </ion-list>
+                    </ion-col>
+
+                    <ion-col size="3"> </ion-col>
+                </ion-row>
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

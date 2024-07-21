@@ -1,0 +1,42 @@
+
+  showForm: boolean = false;
+  ArticulosForm = this.af.ArticulosForm;
+  artSubs: Subscription;
+  formSubs: Subscription;
+
+  arrColores: FormArray;
+
+  constructor(
+    private af: ArticulosForm,
+    private artService: ArticulosService
+  ) {
+
+    this.artSubs = this.artService.obsArt().subscribe((data: Productos) => {
+
+      // console.log('Articulo', data);
+      // console.log('Articulo col ', data.colores);
+      // return;
+      this.ArticulosForm.controls['colores'].setValue(data.colores)
+
+      this.ArticulosForm.setValue(data);
+      console.log('this.ArticulosForm.setValue(data)', this.ArticulosForm.value);
+
+      if (this.ArticulosForm.value) {
+        this.showForm = true;
+      } else {
+        this.showForm = false;
+      }
+      console.log('Subscripcion artForm', this.ArticulosForm.value);
+    });
+
+    this.formSubs = this.artService.obsForm().subscribe((data: any) => this.showForm = data);
+
+  }
+
+  ngOnInit() {
+  }
+
+  ngOnDestroy(): void {
+    this.artSubs.unsubscribe();
+    this.formSubs.unsubscribe();
+  }

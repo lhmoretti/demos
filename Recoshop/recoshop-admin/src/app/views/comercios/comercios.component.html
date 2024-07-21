@@ -1,0 +1,124 @@
+<div class="row text-center">
+    <div class="col-md-12 mb-2">
+        <h3 class="text-center">Comercios</h3>
+    </div>
+</div>
+
+<div class="mb-5">
+    <div *ngIf="!showForm" class="row">
+        <div class="col-md-3 col-sm-3 mt-2">
+            <select
+                name="filtrar"
+                [(ngModel)]="attr"
+                (change)="getComercios()"
+                class="form-control form-control-sm"
+            >
+                <option value="S">Filtrar por..</option>
+                <option value="hab">Habilitados</option>
+                <option value="inhab">Inhabilitados</option>
+                <option value="nombre">Nombre</option>
+                <option value="telefono">Teléfono</option>
+                <option value="email">Email</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 col-sm-8 mt-2">
+            <div
+                *ngIf="attr != 'S' && attr != 'hab' && attr != 'inhab'"
+                class="input-group input-group-sm flex-nowrap"
+            >
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="addon-wrapping">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+                <input
+                    (keyup)="getPaginatedByTxt()"
+                    [(ngModel)]="txt"
+                    class="form-control form-control-sm"
+                    placeholder="Búsqueda"
+                />
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-12 mt-2">
+            <button
+                class="btn btn-sm btn-primary float-right"
+                (click)="nuevo()"
+            >
+                <i class="fas fa-plus"></i> Agregar nuevo
+            </button>
+        </div>
+
+        <div class="col-md-3 col-sm-12 mt-2">
+            <app-paginacion (changePage)="pageChanged($event)">
+            </app-paginacion>
+        </div>
+    </div>
+
+    <div *ngIf="showForm" class="row">
+        <div class="col-md-12 col-sm-12">
+            <button
+                class="btn btn-sm btn-primary float-right mt-2"
+                (click)="volver()"
+            >
+                Volver
+            </button>
+        </div>
+    </div>
+
+    <section>
+        <div *ngIf="!showForm" class="row">
+            <div class="table-responsive text-nowrap text-center">
+                <table class="table table-sm table-borderless table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">CUIT</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Domicilio</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Fecha de creación</th>
+                            <th scope="col">Activo</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of arrComercios">
+                            <td>{{ c.id }}</td>
+                            <td>{{ c.nombre }}</td>
+                            <td>{{ c.cuit }}</td>
+                            <td>{{ c.email }}</td>
+                            <td>{{ c.domicilio }}</td>
+                            <td>{{ c.telefono }}</td>
+                            <td>
+                                {{ c.created_at | date : 'dd-MM-yyyy hh:mm' }}
+                            </td>
+                            <td>
+                                <input
+                                    (click)="changeEstado(c.activo, c.id)"
+                                    type="checkbox"
+                                    [(ngModel)]="c.activo"
+                                />
+                            </td>
+                            <td>
+                                <button
+                                    class="btn btn-primary btn-sm m-1"
+                                    (click)="passCom(c)"
+                                >
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <!-- <button class="btn btn-danger btn-sm m-1" (click)="delete(c.id)">
+                  <i class="far fa-trash-alt"></i>
+                </button> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <span>Total encontrados: {{ totalEncontrados }} </span> -->
+            </div>
+        </div>
+        <app-form-comercio></app-form-comercio>
+    </section>
+</div>

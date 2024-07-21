@@ -1,0 +1,217 @@
+<!-- Comienzo de tabla -->
+<div class="row">
+    <div class="col-md-8 col-sm-8"></div>
+    <div class="col-md-4 col-sm-12">
+        <button
+            class="btn btn-primary btn-sm float-right m-1"
+            (click)="new()"
+            data-toggle="modal"
+            data-target="#modcat"
+        >
+            <i class="fas fa-plus"></i>
+            Nueva
+        </button>
+    </div>
+</div>
+
+<section>
+    <div class="row">
+        <div class="table-responsive text-nowrap text-center">
+            <table class="table table-sm table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Activa</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cat of arrCategorias">
+                        <td>{{ cat.id }}</td>
+                        <td>{{ cat.categoria }}</td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                [(ngModel)]="cat.activo"
+                                class="form-check-input"
+                                (change)="active(cat)"
+                            />
+                        </td>
+                        <td>
+                            <img
+                                [src]="
+                                    'https://your-domain.com.ar/imagenes/categorias/' +
+                                    cat.url_img
+                                "
+                                width="100px"
+                                height="100px"
+                            />
+                            <a
+                                href="https://your-domain.com.ar/imagenes/categorias/{{
+                                    cat.url_img
+                                }}"
+                                target="_blank"
+                            >
+                                Ver imagen</a
+                            >
+                        </td>
+                        <td>
+                            <button
+                                class="btn btn-primary btn-sm m-1"
+                                (click)="passCat(cat)"
+                                data-toggle="modal"
+                                data-target="#modcat"
+                            >
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button
+                                class="btn btn-danger btn-sm m-1"
+                                (click)="delete(cat.id)"
+                            >
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div *ngIf="showLoading" class="mt-3">
+                <img src="assets/images/loading.gif" width="120" height="120" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<div
+    class="modal fade"
+    id="modcat"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modcat"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Categoría</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form *ngIf="categoria">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <label for=""
+                                >Categoría<b style="color: red">*</b></label
+                            >
+                            <input
+                                type="text"
+                                maxlength="50"
+                                class="form-control form-control-sm round"
+                                placeholder="Categoría"
+                                [(ngModel)]="categoria.categoria"
+                                [ngModelOptions]="{ standalone: true }"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Si el categoria ya está cargado, no debe permitir cargar otro categoria, solo actualizar
+             sus atributos titulo, descrip y activo -->
+                    <div
+                        *ngIf="
+                            this.selectedFile == null && categoria.id == null
+                        "
+                        class="row"
+                    >
+                        <div class="col-md-6">
+                            <div class="form-group col-md-12">
+                                <input
+                                    type="file"
+                                    style="display: none"
+                                    (change)="onFileSelected($event)"
+                                    #fileInput
+                                />
+                                <button
+                                    id="foto"
+                                    class="btn btn-block btn-sm btn-info"
+                                    (click)="fileInput.click()"
+                                >
+                                    <i class="fas fa-plus"></i> Agregar nueva
+                                    categoria
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div
+                            class="text-center"
+                            *ngIf="
+                                progreso != '100%' &&
+                                progreso != '0%' &&
+                                progreso != ''
+                            "
+                        >
+                            <h3>Espere, subiendo categoria. {{ progreso }}</h3>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <!-- Si seleccionó un categoria, pero dejó los campos título y descrip vacios aparece este div -->
+                            <div
+                                *ngIf="
+                                    this.selectedFile !== null &&
+                                    categoria.id == null
+                                "
+                            >
+                                <div class="col-md-6">
+                                    {{ selectedFile.name }}
+                                </div>
+                                <div class="col-md-6">
+                                    <button
+                                        type="submit"
+                                        (click)="onUpload()"
+                                        class="btn btn-sm btn-primary btn-block float-right"
+                                    >
+                                        Confirmar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="categoria.id != null" class="col-md-6">
+                            <label>Actualizar:</label>
+                            <button
+                                type="submit"
+                                (click)="update()"
+                                class="btn btn-sm btn-primary btn-block float-right"
+                            >
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    id="dismiss"
+                    class="btn btn-sm btn-secondary"
+                    data-dismiss="modal"
+                >
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

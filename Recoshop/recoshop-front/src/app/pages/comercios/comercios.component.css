@@ -1,0 +1,36 @@
+.img-logo {
+    z-index: 3;
+    border: white;
+    border-width: 5px;
+    border-style: solid;
+    width: 90px;
+    height: 90px;
+    float: left;
+}
+
+.box-lista-comercios .card-text {
+    font-size: 0.9rem;
+}
+
+.box-lista-comercios h5 {
+    font-size: 1rem;
+}
+
+.txt-title {
+    color: black;
+}
+
+.txt-title:hover {
+    cursor: pointer;
+    color: #e7600f;
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+.card-body {
+    clear: both;
+}

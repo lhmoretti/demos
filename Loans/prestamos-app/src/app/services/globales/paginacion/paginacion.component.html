@@ -1,0 +1,33 @@
+<!-- List Full Lines -->
+<!-- <ion-list lines="full"> -->
+<ion-row>
+  <ion-col>
+    <ion-item>
+      <ion-button color="primary" fill="outline" size="small" (click)="back()">
+        <ion-icon name="caret-back-outline"></ion-icon>
+      </ion-button>
+      <small class="padding">
+        {{ pageModel.pageNro + 1 }}
+      </small>
+      <ion-button
+        [disabled]="blockBtn"
+        fill="outline"
+        size="small"
+        color="primary"
+        (click)="next()"
+      >
+        <ion-icon name="caret-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+<!-- </ion-list> -->
+
+<!-- <ion-button color="primary" fill="outline" size="small" (click)="back()">
+    <ion-icon name="caret-back-outline"></ion-icon>
+  </ion-button>
+  
+  <ion-button [disabled]="blockBtn" fill="outline" size="small" color="primary" (click)="next()">
+    <ion-icon name="caret-forward-outline"></ion-icon>
+  </ion-button> -->

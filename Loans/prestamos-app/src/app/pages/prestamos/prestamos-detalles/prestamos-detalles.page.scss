@@ -1,0 +1,39 @@
+p {
+  font-size: large;
+  color: black;
+  margin-top: 7px;
+  text-align: center;
+}
+
+ion-item,
+ion-label,
+h2 {
+  text-align: center;
+}
+
+ion-content {
+  --background: rgb(235, 235, 235) !important;
+}
+
+h2 {
+  margin-top: 5px;
+  margin-bottom: -5px;
+  color: rgb(126, 122, 122);
+}
+
+.price {
+  font-size: large;
+}
+
+hr {
+  background: #b9b9b9;
+  height: 0.5px;
+}
+
+.danger {
+  --ion-background-color: #ff4949;
+}
+
+.tertiary {
+  --ion-background-color: #5f6dfd;
+}

@@ -1,0 +1,67 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Todos los pedidos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <div *ngFor="let pedido of pedidos | async">
+            <ion-item [color]="pedido.color" (click)="verPedido(pedido._id)">
+                <ion-label [color]="pedido.txtColor">
+                    <div>
+                        <ion-icon
+                            [color]="pedido.txtColor"
+                            class="icon-size"
+                            name="bookmark"
+                        ></ion-icon>
+                        <p class="txt-nroped">{{pedido.nro_pedido}}</p>
+                    </div>
+                    <div>
+                        <ion-icon
+                            [color]="pedido.txtColor"
+                            class="icon-size"
+                            name="person"
+                        ></ion-icon>
+                        <p class="txt-nroped">
+                            {{pedido.usuario.nombre | titlecase }}
+                            {{pedido.usuario.apellido | titlecase }} | MESA: #
+                            {{pedido.mesa.numero}}
+                        </p>
+                    </div>
+                    <ul>
+                        <li *ngFor="let producto of pedido.productos">
+                            <h1 class="txt-arts">
+                                {{producto.codigo}} {{producto.nombre}}
+                                ({{producto.cantidad}})
+                            </h1>
+                        </li>
+                    </ul>
+                </ion-label>
+
+                <div slot="end">
+                    <ion-button [color]="pedido.color" size="small">
+                        <ion-label [color]="pedido.txtColor">
+                            <p class="txt-btn" slot="start">
+                                {{pedido.estado}}
+                            </p>
+                        </ion-label>
+                        <ion-icon
+                            [color]="pedido.txtColor"
+                            class="icon-size"
+                            slot="end"
+                            [name]="pedido.icon"
+                        ></ion-icon>
+                    </ion-button>
+                    <ion-label [color]="pedido.txtColor">
+                        <h1>{{pedido.hora}}</h1>
+                        <h1>{{pedido.fecha}}</h1>
+                    </ion-label>
+                </div>
+            </ion-item>
+        </div>
+    </ion-list>
+</ion-content>

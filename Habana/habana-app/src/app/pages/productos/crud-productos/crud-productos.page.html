@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/main/productos"></ion-back-button>
+        </ion-buttons>
+        <div *ngIf="showActualizar; else addProd">
+            <ion-title>Actualizar producto</ion-title>
+        </div>
+
+        <ng-template #addProd>
+            <ion-title>Agregar producto</ion-title>
+        </ng-template>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form #fProducto="ngForm" (ngSubmit)="enviarProducto(fProducto)">
+        <ion-row>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">Nombre</ion-label>
+                    <ion-input
+                        type="text"
+                        name="nombre"
+                        [(ngModel)]="Producto.nombre"
+                        required
+                    ></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">Precio</ion-label>
+                    <ion-input
+                        type="number"
+                        name="precio"
+                        [(ngModel)]="Producto.precio"
+                        required
+                    ></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label position="floating">Codigo</ion-label>
+                    <ion-input
+                        type="number"
+                        name="codigo"
+                        [(ngModel)]="Producto.codigo"
+                        required
+                    ></ion-input>
+                </ion-item>
+            </ion-col>
+
+            <ion-col size="12">
+                <ion-button
+                    *ngIf="showActualizar"
+                    type="submit"
+                    expand="block"
+                    fill="outline"
+                    >Actualizar producto</ion-button
+                >
+
+                <ion-button
+                    *ngIf="!showActualizar"
+                    type="submit"
+                    expand="block"
+                    fill="outline"
+                    >Agregar producto</ion-button
+                >
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-content>

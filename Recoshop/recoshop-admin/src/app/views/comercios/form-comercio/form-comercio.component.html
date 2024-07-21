@@ -1,0 +1,153 @@
+<div *ngIf="showForm">
+    <div class="text-center mt-2" role="alert">
+        <div>
+            <form (ngSubmit)="send()">
+                <!-- <div class="row"> -->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Nombre: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="comercioFM.nombre"
+                            [ngModelOptions]="{ standalone: true }"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Descripción: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="comercioFM.descripcion"
+                            [ngModelOptions]="{ standalone: true }"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>CUIT: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="comercioFM.cuit"
+                            [ngModelOptions]="{ standalone: true }"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Teléfono: </label>
+                        <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="comercioFM.telefono"
+                            [ngModelOptions]="{ standalone: true }"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label> Domicilio: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="comercioFM.domicilio"
+                            [ngModelOptions]="{ standalone: true }"
+                            required
+                        />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Email: </label>
+                        <input
+                            type="email"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="comercioFM.email"
+                            [ngModelOptions]="{ standalone: true }"
+                            required
+                        />
+                    </div>
+                    <div *ngIf="idPrivilegio === 1" class="form-group col-md-6">
+                        <label> Usuarios: </label>
+                        <select
+                            [compareWith]="compareFn"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="usuarios"
+                            (change)="asignarUsuarios()"
+                            [ngModelOptions]="{ standalone: true }"
+                            required
+                        >
+                            <option *ngFor="let u of arrUsuarios" [ngValue]="u">
+                                {{ u.nombre }} {{ u.apellido }}
+                            </option>
+                        </select>
+                    </div>
+                    <div *ngIf="idPrivilegio === 1" class="form-group col-md-6">
+                        <label>Plan: </label>
+                        <select
+                            [compareWith]="comparePlan"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="comercioFM.plan"
+                            [ngModelOptions]="{ standalone: true }"
+                            required
+                        >
+                            <option *ngFor="let p of planes" [ngValue]="p.plan">
+                                {{ p.plan }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div *ngIf="idPrivilegio === 1" class="row">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="cic"
+                                [(ngModel)]="comercioFM.socio_cic"
+                                [ngModelOptions]="{ standalone: true }"
+                            />
+                            <label class="form-check-label" for="cic"
+                                >Socio CIC
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="ac"
+                                [(ngModel)]="comercioFM.activo"
+                                [ngModelOptions]="{ standalone: true }"
+                            />
+                            <label class="form-check-label" for="ac"
+                                >Activo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-6">
+            <label>Foto de perfil: </label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="comercioFM.avatar"
+              [ngModelOptions]="{standalone: true}" required>
+          </div>
+          <div class="col-md-6">
+            <label>Banner: </label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="comercioFM.banner"
+              [ngModelOptions]="{standalone: true}" required>
+          </div> -->
+
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <label>Confirmar:</label>
+                        <button
+                            type="submit"
+                            class="btn btn-sm btn-primary btn-block float-right"
+                        >
+                            Confirmar
+                        </button>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </form>
+        </div>
+    </div>
+</div>

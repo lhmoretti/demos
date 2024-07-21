@@ -1,0 +1,173 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon
+        name="arrow-back-outline"
+        [routerLink]="['/clientes']"
+        routerLinkActive="router-link-active"
+      ></ion-icon>
+    </ion-buttons>
+    <ion-title>Formulario préstamo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-padding-top">
+    <ion-row *ngIf="prestamo" class="ion-text-center">
+      <ion-col size="12">
+        <ion-item color="tertiary">
+          <ion-label>
+            Nuevo préstamo: {{ prestamo.clienteId.nombre }} {{
+            prestamo.clienteId.apellido }}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <br /><br />
+      <hr />
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Monto</ion-label>
+          <ion-input
+            type="number"
+            required
+            [(ngModel)]="prestamo.monto"
+            autofocus
+            #monto
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Tipo pago</ion-label>
+          <ion-select
+            interface="popover"
+            placeholder="Selecccionar"
+            [(ngModel)]="prestamo.tipo_pago"
+            (ionChange)="calcularCuotas()"
+          >
+            <ion-select-option value="Mensual">Mensual</ion-select-option>
+            <ion-select-option value="Quincenal">Quincenal</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-item>
+          <ion-label position="floating">Tasa interés</ion-label>
+          <ion-select
+            type="number"
+            interface="popover"
+            [(ngModel)]="prestamo.tasa_interes"
+            (ionChange)="calcIntereses()"
+          >
+            <ion-select-option
+              type="number"
+              *ngFor="let t of arrTasaInt"
+              [value]="t"
+            >
+              {{ t }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-item>
+          <ion-label position="floating">Intereses</ion-label>
+          <ion-input
+            type="number"
+            required
+            [(ngModel)]="prestamo.intereses"
+            disabled
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-item>
+          <ion-label position="floating">x Cuota</ion-label>
+          <ion-input required [(ngModel)]="int_x_cuota" disabled></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Cant. cuotas</ion-label>
+          <ion-select
+            interface="popover"
+            [(ngModel)]="prestamo.cantidad_cuotas"
+            (ionChange)="calcIntereses();calcFcVenc()"
+          >
+            <ion-select-option *ngFor="let c of arrCuotas" [value]="c">
+              {{ c }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Fijar cuotas de:</ion-label>
+          <ion-input #fijaCuo [(ngModel)]="cuotas_de"></ion-input>
+        </ion-item>
+      </ion-col>
+      <!-- <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Estado</ion-label>
+          <ion-select interface="popover" placeholder="Selecccionar" [(ngModel)]="prestamo.estado">
+            <ion-select-option value="Vigente">Vigente</ion-select-option>
+            <ion-select-option value="Saldado">Saldado</ion-select-option>
+            <ion-select-option value="Deuda">Deuda</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col> -->
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Fecha</ion-label>
+          <ion-datetime
+            min="2017"
+            max="2050"
+            displayFormat="YYYY/MM/DD HH:mm"
+            [(ngModel)]="prestamo.fecha_hora"
+          >
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Vencimiento</ion-label>
+          <ion-datetime
+            min="2017"
+            max="2050"
+            displayFormat="YYYY/MM/DD HH:mm"
+            [(ngModel)]="prestamo.vencimiento"
+          >
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6"> </ion-col>
+
+      <ion-col size="12">
+        <ion-item color="dark">
+          <ion-label>
+            Saldo total:
+            <b> {{ prestamo.saldo | currency : 'ARS' : 'symbol': '1.0-0' }}</b>
+            <br />
+            Cuotas de:
+            <b> {{ cuotas_de | currency : 'ARS' : 'symbol': '1.0-0' }}</b>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-button (click)="post()" expand="block" color="success"
+          >Confirmar</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

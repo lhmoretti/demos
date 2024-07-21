@@ -1,0 +1,22 @@
+.navbar {
+    background: #e5610f;
+    color: #111;
+}
+
+ul {
+    width: 100%;
+}
+
+.salir {
+    margin-left: auto;
+}
+
+.btn {
+    color: #ffffff;
+    border-style: solid;
+    border-color: #ffffff;
+}
+
+a {
+    cursor: pointer;
+}

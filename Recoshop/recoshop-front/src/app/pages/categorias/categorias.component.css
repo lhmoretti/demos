@@ -1,0 +1,36 @@
+.logo-categoria {
+    width: 100px;
+}
+
+.txt-categoria {
+    font-size: 16px;
+}
+
+.cont-categoria {
+    display: block;
+    margin: auto;
+    height: 100px;
+}
+
+.imagen-box-categoria {
+    float: left;
+    position: relative;
+    width: 70px;
+    margin-right: 10px;
+}
+
+.desc-box-categoria {
+    float: left;
+    position: relative;
+    line-height: 64px;
+    font-size: 12px;
+}
+
+.cont-categoria:hover {
+    cursor: pointer;
+    box-shadow: 3px 2px #e7600f;
+    -webkit-box-shadow: 0px 0px 3px 1px #e7600f;
+    -moz-box-shadow: 0px 0px 3px 1px #e7600f;
+    box-shadow: 0px 0px 3px 1px #e7600f;
+    transition: 300ms;
+}

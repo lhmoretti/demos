@@ -1,0 +1,227 @@
+<nav class="top-bar">
+    <div class="container">
+        <a class="a-contact"
+            ><i class="fas fa-phone"></i> Atención al Comercio - 15 a 19hs:
+            123123123123</a
+        >
+        <a
+            class="a-contact float-right ml-5"
+            *ngIf="showMicuenta == true"
+            (click)="cerrarSesion()"
+            ><i class="fas fa-sign-out-alt mr-1"></i>Cerrar sesión</a
+        >
+        <a class="a-contact float-right ml-5"
+            ><i class="far fa-question-circle"></i> Ayuda</a
+        >
+        <a class="a-contact float-right"
+            ><i class="far fa-envelope"></i> Contacto</a
+        >
+    </div>
+</nav>
+<nav class="navbar main-header navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <img
+            src="assets/imgs/logo-recoshop.png"
+            [routerLink]="['']"
+            class="img-logo"
+            alt=""
+        />
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse text-center navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-5">
+                <li class="nav-item active">
+                    <input
+                        type="text"
+                        [(ngModel)]="searchTxt"
+                        #search
+                        (keyup.enter)="buscarTxt(search.value)"
+                        placeholder="¿Qué buscás?"
+                        class="input-search mr-5 form-control"
+                    />
+                    <div
+                        [ngClass]="{
+                            'cont-busqueda': !showContProds,
+                            'cont-busqueda-show': showContProds
+                        }"
+                        class="cont-busqueda"
+                    >
+                        <ul class="list-group">
+                            <li
+                                class="list-group-item li-prod"
+                                *ngFor="let producto of arrProductos"
+                                (click)="_prods.verProducto(producto)"
+                            >
+                                <img
+                                    class="img-cart"
+                                    [src]="
+                                        producto.imagenes[0]
+                                            ? 'https://your-domain.com.ar/imagenes/' +
+                                              producto.imagenes[0].url
+                                            : 'assets/css/no-image.png'
+                                    "
+                                    alt=""
+                                />
+                                <p class="mr-4">{{ producto.nombre }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item contenido-sesion">
+                    <a
+                        class="nav-link a-opts inicia-sesion"
+                        *ngIf="showMicuenta == false"
+                        [routerLink]="['login']"
+                    >
+                        <div class="icono-inicia-sesion">
+                            <i class="fas fa-user fa-lg"></i>
+                        </div>
+                        <div class="links-sesion">
+                            <div class="link-inicia-sesion">Iniciar sesión</div>
+                            <div class="link-registra">Registrarse</div>
+                        </div>
+                    </a>
+                    <a
+                        class="nav-link a-opts"
+                        *ngIf="showMicuenta == true"
+                        [routerLink]="['mi-cuenta']"
+                    >
+                        Hola {{ Usuario.nombre }}!</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link a-opts"
+                        *ngIf="showMicuenta == true"
+                        [routerLink]="['mi-cuenta']"
+                    >
+                        Mis pedidos</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link a-opts"
+                        *ngIf="showMicuenta == true && Usuario.role === 2"
+                        href="https://your-domain.com.ar/admin/"
+                        target="_blank"
+                    >
+                        Vender
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div class="container-cart">
+                        <i class="fas fa-shopping-cart cart"></i>
+                        <span class="badge badge-dark badge-position">
+                            {{ arrLineas.length }}
+                        </span>
+                        <div
+                            class="content-cart shadow p-3 mb-5 bg-white rounded"
+                        >
+                            <div class="content-lineas">
+                                <div
+                                    class="alert alert-danger"
+                                    *ngIf="arrLineas.length == 0"
+                                    role="alert"
+                                >
+                                    No tenés artículos en tu carrito
+                                </div>
+                                <ul class="list-group">
+                                    <li
+                                        class="list-group-item border-right-0 border-left-0"
+                                        *ngFor="let linea of arrLineas"
+                                    >
+                                        <img
+                                            class="img-cart mt-2"
+                                            [src]="
+                                                linea.img
+                                                    ? linea.img
+                                                    : 'assets/imgs/sin-foto-150x150.gif'
+                                            "
+                                            alt=""
+                                        />
+                                        <div class="float-left">
+                                            <p
+                                                class="txt-cart-title ml-2 text-left"
+                                            >
+                                                <b> {{ linea.nombre }}</b>
+                                            </p>
+
+                                            <p
+                                                class="text-left ml-2 d-inline txt-cart-title"
+                                            >
+                                                x{{ linea.cantidad }}
+                                            </p>
+
+                                            <p
+                                                class="text-left ml-2 d-inline txt-cart-title"
+                                                [ngClass]="{
+                                                    'txt-tachado': linea.oferta
+                                                }"
+                                            >
+                                                {{
+                                                    linea.precio_venta
+                                                        | currency : 'ARS'
+                                                }}
+                                            </p>
+                                            <p
+                                                class="text-left ml-2 d-inline"
+                                                *ngIf="linea.oferta"
+                                                [ngClass]="{
+                                                    'txt-precio-oferta':
+                                                        linea.oferta
+                                                }"
+                                            >
+                                                {{
+                                                    linea.precio_oferta
+                                                        | currency : 'ARS'
+                                                }}
+                                            </p>
+
+                                            <!-- <p class="ml-1 text-left">
+                        Precio:
+                      </p> -->
+                                        </div>
+                                        <div class="float-right mt-3">
+                                            <button
+                                                class="btn btn-sm btn-danger float-right"
+                                                (click)="eliminarLinea(linea)"
+                                            >
+                                                x
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="mt-2" *ngIf="arrLineas.length != 0">
+                                <button
+                                    class="btn btn-sm bg-orange float-left"
+                                    [routerLink]="['/checkout1']"
+                                >
+                                    Ir al carrito
+                                </button>
+                                <p class="float-right txt-orange">
+                                    Total:
+                                    <b>
+                                        {{
+                                            Total | currency : 'ARS' : 'symbol'
+                                        }}</b
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

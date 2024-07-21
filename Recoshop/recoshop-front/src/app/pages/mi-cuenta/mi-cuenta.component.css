@@ -1,0 +1,17 @@
+.content-inputs {
+    max-width: 400px;
+    align-items: center;
+}
+
+.li-options {
+    list-style: none;
+    padding: 10px 10px 10px 10px;
+    border: #e7600f solid;
+    border-width: 1px;
+}
+
+.li-options:hover {
+    background-color: #e7600f;
+    color: white;
+    cursor: pointer;
+}

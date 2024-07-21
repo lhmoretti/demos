@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> Estadísticas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Desde</ion-label>
+          <ion-datetime
+            min="2017"
+            max="2050"
+            displayFormat="YYYY/MM/DD"
+            [(ngModel)]="desde"
+          >
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Hasta</ion-label>
+          <ion-datetime
+            min="2017"
+            max="2050"
+            displayFormat="YYYY/MM/DD"
+            [(ngModel)]="hasta"
+          >
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <!-- <ion-item> -->
+        <ion-button (click)="getDatos();"> ¡Obetener estadísticas! </ion-button>
+        <!-- </ion-item> -->
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="cantPrestamos$ | async as cant">
+      <ion-col size="12">
+        <ion-card>
+          <h4>Total de préstamos</h4>
+          <p class="price">{{ cant.count }}</p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="cantPagos$ | async as pagos">
+      <ion-col size="12">
+        <ion-card>
+          <h4>Total de pagos</h4>
+          <p class="price">{{ pagos.count }}</p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="ganancias$ | async as gan">
+      <ion-col size="12">
+        <ion-card>
+          <h4>Ganancias</h4>
+          <p class="price">
+            {{ gan.suma | currency : 'ARS' : 'symbol': '1.0-0' }}
+          </p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="prestado$ | async as pres">
+      <ion-col size="12">
+        <ion-card>
+          <h4>Prestado</h4>
+          <p class="price">
+            {{ pres.suma | currency : 'ARS' : 'symbol': '1.0-0' }}
+          </p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="ingresado$ | async as ing">
+      <ion-col size="12">
+        <ion-card>
+          <h4>Ingresado</h4>
+          <p class="price">
+            {{ ing.suma | currency : 'ARS' : 'symbol': '1.0-0' }}
+          </p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

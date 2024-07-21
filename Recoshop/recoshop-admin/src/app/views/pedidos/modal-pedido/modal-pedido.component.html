@@ -1,0 +1,127 @@
+<!-- /Ticket -->
+<div *ngIf="pedido" class="row m-2" id="ticket">
+    <div class="col-md-12">
+        <h3>recoshop-admin</h3>
+        <h4 style="color: green">
+            Pedido
+            {{
+                (pedido.estado == 'P' && 'Pendiente') ||
+                    (pedido.estado == 'C' && 'Cancelado') ||
+                    (pedido.estado == 'D' && 'Despachado') ||
+                    (pedido.estado == 'A' && 'Anulado')
+            }}
+        </h4>
+    </div>
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-sm text-center">
+                <tr>
+                    <th width="70%" align="left">Nombre</th>
+                    <th width="70%" align="left">Descripción</th>
+                    <th width="13%">Cantidad</th>
+                    <th width="13%">Precio U.</th>
+                    <th width="13%">Total</th>
+                </tr>
+                <tr
+                    *ngFor="let pl of pedido.pedido_lineas"
+                    style="margin-bottom: 5px"
+                >
+                    <td>{{ pl.nombre }}</td>
+                    <td>{{ pl.descripcion }}</td>
+                    <td>{{ pl.cantidad }}</td>
+                    <td>{{ pl.precio_venta | currency : 'ARS' : 'symbol' }}</td>
+                    <td>{{ pl.precio_venta * pl.cantidad }}</td>
+                </tr>
+            </table>
+        </div>
+        <hr />
+        <!-- /Body -->
+        <!-- Footer -->
+        <table class="table table-sm">
+            <tr>
+                <td class="col-md-6" style="font-size: 14px; width: 300px">
+                    <span
+                        >Fecha:
+                        {{
+                            pedido.fecha_hora | date : 'dd/MM/yyyy hh:mm:ss'
+                        }}</span
+                    ><br />
+                    <span
+                        >Sub Total:
+                        {{ pedido.total | currency : 'ARS' : 'symbol' }} </span
+                    ><br />
+                    <!-- <span>Descuento: {{ pedido.TotalDescuento | currency</span><br />
+            <span>Envio: {{ pedido.TotalEnvio | currency</span><br /> -->
+                    <span
+                        >Total:
+                        <b
+                            >{{ pedido.total | currency : 'ARS' : 'symbol' }}
+                        </b></span
+                    ><br />
+                    <span
+                        >Forma de Pago: <b>{{ pedido.modo_pago }}</b></span
+                    ><br />
+                </td>
+                <td class="col-md-6" style="font-size: 14px; width: 600px">
+                    <span
+                        >Cliente:
+                        <b
+                            >{{ pedido.usuarioId.nombre }}
+                            {{ pedido.usuarioId.apellido }}
+                        </b></span
+                    ><br />
+                    <span
+                        >Nro. Cliente: <b>{{ pedido.usuarioId.id }} </b></span
+                    ><br />
+                    <span>Direccion: {{ pedido.usuarioId.domicilio }} </span
+                    ><br />
+                    <span>Telefono: {{ pedido.usuarioId.telefono }}</span
+                    ><br />
+                    <span>Dia Entrega: {{ pedido.fecha_entrega }} </span><br />
+                    <span>Horario: {{ pedido.hora_entrega }}</span
+                    ><br />
+                    <span>Comentario: {{ pedido.comentario }} </span><br />
+                    <!-- <span>
+              Reemplazar productos por falta de stock: {{ pedido.B1 && 'Sí' || !pedido.B1 && 'No'  
+            </span> -->
+                </td>
+            </tr>
+        </table>
+        <!-- /Footer -->
+    </div>
+</div>
+<!-- /Ticket -->
+<div class="row m-2" id="Div1">
+    <div class="col-md-12 text-left" style="font-size: 14px">
+        <hr />
+        <div>
+            <!-- <button class="btn btn-success" (click)="print()">Imprimir</button> -->
+            <button
+                class="btn btn-sm btn-success m-1"
+                printSectionId="ticket"
+                ngxPrint
+            >
+                Imprimir
+            </button>
+            <button
+                (click)="changeEstado('C')"
+                class="btn btn-sm btn-danger m-1"
+            >
+                Cancelar pedido
+            </button>
+            <button
+                (click)="changeEstado('D')"
+                class="btn btn-sm btn-warning m-1"
+            >
+                Despachar pedido
+            </button>
+
+            <button
+                class="btn btn-sm btn-warning m-1 float-right"
+                data-dismiss="modal"
+            >
+                Salir
+            </button>
+        </div>
+    </div>
+</div>

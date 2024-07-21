@@ -1,0 +1,18 @@
+.header {
+    background-color: #e7600f;
+}
+
+.input-size {
+    width: 300px;
+    padding: 5px;
+}
+
+.img-logo {
+    height: auto;
+    width: 100%;
+}
+
+.icon-size {
+    font-size: 22px;
+    color: white;
+}

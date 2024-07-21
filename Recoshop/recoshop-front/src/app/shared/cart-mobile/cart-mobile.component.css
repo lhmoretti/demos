@@ -1,0 +1,57 @@
+.badge-position {
+    position: absolute;
+    margin-top: -10px;
+    margin-left: -5px;
+}
+
+.size-cart {
+    font-size: 20px;
+}
+
+.cart-hidden {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    background-color: #ffffff;
+    left: 0;
+    color: #000;
+    overflow-x: hidden;
+    padding-top: 20px;
+    transition: width 2s, height 2s, transform 2s;
+}
+
+.cart-show {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    background-color: #ffffff;
+    left: 0;
+    color: #000;
+    overflow-x: hidden;
+    padding-top: 20px;
+    display: block;
+    transition: width 2s, height 2s, transform 2s;
+}
+
+.bg-header-carrito {
+    height: 60px;
+    margin-top: -20px;
+    margin-left: -15px;
+    background-color: #e7600f;
+}
+
+.btn-white {
+    border: solid;
+    border-color: #fff;
+    background-color: transparent;
+    color: #fff;
+    margin-left: 60px;
+}
+
+.icon-size-cross {
+    font-size: 22px;
+}

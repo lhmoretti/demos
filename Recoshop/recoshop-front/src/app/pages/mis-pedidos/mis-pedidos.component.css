@@ -1,0 +1,8 @@
+.alert {
+    text-align: center;
+    vertical-align: middle;
+    background-color: #e7600f;
+    color: white;
+    border-radius: 0px;
+    padding: 7px;
+}

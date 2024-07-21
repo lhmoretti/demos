@@ -1,0 +1,269 @@
+<div class="row text-center">
+    <div class="col-md-12 mb-2">
+        <h3 class="text-center">Mis comercios</h3>
+    </div>
+</div>
+
+<div *ngIf="!showTienda" class="m-3">
+    <div class="row">
+        <div class="col-md-12 alert alert-info mt-2">
+            Aquí verás tus comercios activos. Hacé clic en tu negocio para
+            configurar las imágenes del banner y logotipo.
+        </div>
+    </div>
+
+    <div class="card-columns col-md-6">
+        <div
+            *ngFor="let com of arrComercios"
+            class="card"
+            (click)="getDatos(com.id)"
+            style="cursor: pointer"
+        >
+            <img
+                class="card-img-top"
+                [src]="com.avatar ? com.avatar : 'assets/images/150x150.png'"
+                alt="Foto de perfil"
+            />
+            <div class="card-body">
+                <h5 class="card-title text-center">{{ com.nombre }}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="arrComercios.length == 0">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="alert alert-primary">
+                <h3 class="text-center">
+                    No tienes comercios adheridos o habilitados
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showTienda">
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <button
+                class="btn btn-sm btn-outline-dark float-right ml-1"
+                type="button"
+                data-toggle="collapse"
+                data-target="#tip"
+                aria-expanded="false"
+                aria-controls="tip"
+            >
+                <i class="fas fa-lightbulb"></i>
+                Recomendación
+            </button>
+            <button
+                class="btn btn-sm btn-outline-dark ml-1"
+                (click)="showTienda = false"
+            >
+                <i class="fas fa-arrow-left"></i>
+                Volver
+            </button>
+            <button
+                class="btn btn-sm btn-outline-primary ml-1"
+                (click)="passCom(comercio)"
+                data-toggle="modal"
+                data-target="#modcom"
+            >
+                <i class="fas fa-edit"></i>
+                Editar datos del comercio
+            </button>
+
+            <div class="collapse mt-2" id="tip">
+                <div class="alert alert-info" role="alert">
+                    <small>
+                        Esta es tu sección web en Recoshop.<br />
+                        Hacé clic en la imagen para cargar el banner de tu
+                        negocio en tu sitio.<br />
+                        El tamaño de la imagen del banner debe ser de
+                        2000x400px. El temaño del logo debe ser de 150x150px.
+                        <br />
+                        ¡Te sugerimos respetar estos tamaños para evitar que tu
+                        imagen se estire y pierda calidad!
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-5">
+        <img
+            class="img-banner"
+            [src]="
+                comercio.banner
+                    ? comercio.banner
+                    : 'assets/images/2000x400-recoshop.gif'
+            "
+            alt=""
+            (click)="fileBanner.click()"
+        />
+        <img
+            class="img-logo"
+            [src]="
+                comercio.avatar ? comercio.avatar : 'assets/images/150x150.png'
+            "
+            alt=""
+            (click)="fileAvatar.click()"
+        />
+        <input
+            type="file"
+            style="display: none"
+            (change)="onFileSelected($event, 1)"
+            #fileAvatar
+        />
+        <input
+            type="file"
+            style="display: none"
+            (change)="onFileSelected($event, 2)"
+            #fileBanner
+        />
+
+        <div class="form-group col-md-12">
+            <div
+                class="text-center"
+                *ngIf="progreso != '100%' && progreso != '0%' && progreso != ''"
+            >
+                <span class="badge badge-pill badge-light">
+                    Espere, subiendo foto. {{ progreso }}</span
+                >
+            </div>
+        </div>
+        <div class="text-center mb-5">
+            <h2>{{ comercio.nombre }}</h2>
+            <p class="text-muted">{{ comercio.descripcion }}</p>
+        </div>
+
+        <div class="card-columns">
+            <div
+                class="card m-2"
+                *ngFor="let producto of arrProductos; index as i"
+            >
+                <div *ngIf="producto.imagenes.length != 0">
+                    <div
+                        id="carousel{{ i }}"
+                        class="carousel slide"
+                        data-ride="carousel"
+                    >
+                        <ol class="carousel-indicators">
+                            <li
+                                data-target="#carousel{{ i }}"
+                                *ngFor="
+                                    let img of producto.imagenes;
+                                    index as im
+                                "
+                                data-slide-to="{{ img.id }}"
+                                id="{{ img.id }}"
+                            ></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div
+                                class="carousel-item"
+                                *ngFor="
+                                    let img of producto.imagenes;
+                                    let first = first
+                                "
+                                [ngClass]="{ active: first }"
+                            >
+                                <img class="img-slide" [src]="img.url" alt="" />
+                                <!-- <img class="img-slide" src="var/www/your-domain.com.ar/imagenes/{{img.url}}" alt=""> -->
+                            </div>
+                        </div>
+                        <a
+                            class="carousel-control-prev"
+                            href="#carousel{{ i }}"
+                            role="button"
+                            data-slide="prev"
+                        >
+                            <span
+                                class="carousel-control-prev-icon"
+                                aria-hidden="true"
+                            ></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a
+                            class="carousel-control-next"
+                            href="#carousel{{ i }}"
+                            role="button"
+                            data-slide="next"
+                        >
+                            <span
+                                class="carousel-control-next-icon"
+                                aria-hidden="true"
+                            ></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <!-- <small class="card-text">{{ producto.descripcion }}</small> -->
+                    <p class="card-text precio">
+                        {{
+                            producto.precio_venta | currency : 'ARS' : 'symbol'
+                        }}
+                    </p>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <button
+                                class="btn btn-sm btn-block"
+                                [ngClass]="{
+                                    'btn-outline-danger': !producto.archivado,
+                                    'btn-outline-success': producto.archivado,
+                                }"
+                                (click)="archivar(producto)"
+                            >
+                                <span *ngIf="producto.archivado"
+                                    >Habilitar</span
+                                >
+                                <span *ngIf="!producto.archivado">Pausar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div
+    *ngIf="comercio"
+    class="modal fade"
+    id="modcom"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modcom"
+    aria-hidden="true"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Comercio</h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-form-comercio></app-form-comercio>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-sm btn-secondary"
+                    data-dismiss="modal"
+                >
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

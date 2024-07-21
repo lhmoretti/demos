@@ -1,0 +1,112 @@
+<div *ngIf="showForm">
+    <div class="text-center mt-2" role="alert">
+        <div>
+            <form [formGroup]="usuarioFM" (ngSubmit)="send()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label
+                            ><b style="color: red">* </b>Nombre de Usuario:
+                        </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="username"
+                        />
+                    </div>
+                    <!-- <div class="col-md-6">
+            <label><b style="color: red;">* </b>Contraseña: </label>
+            <input type="password" class="form-control form-control-sm" formControlName="password" required>
+          </div> -->
+                </div>
+                <br />
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Nombre: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="nombre"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Apellido: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="apellido"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label><b style="color: red">* </b>Email: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="email"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label> Domicilio: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="domicilio"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label> Provincia: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="provincia"
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label> Localidad: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="localidad"
+                        />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label><b style="color: red">* </b>Telefono: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="telefono"
+                            required
+                        />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label><b style="color: red">* </b>Role: </label>
+                        <select
+                            [compareWith]="compareFn"
+                            class="form-control form-control-sm"
+                            name="rol"
+                            id="role"
+                            formControlName="role"
+                            required
+                        >
+                            <option [ngValue]="S">Seleccionar</option>
+                            <option [ngValue]="1">ADMIN</option>
+                            <option [ngValue]="2">COMERCIANTE</option>
+                            <option [ngValue]="3">CLIENTE</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Confirmar:</label>
+                        <button
+                            type="submit"
+                            class="btn btn-sm btn-primary btn-block float-right"
+                            [disabled]="!usuarioFM.valid"
+                        >
+                            Confirmar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

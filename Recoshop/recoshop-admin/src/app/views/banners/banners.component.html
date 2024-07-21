@@ -1,0 +1,80 @@
+<div class="mb-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center mb-2">Banners</h3>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <button
+                class="btn btn-sm btn-primary float-right mr-3"
+                (click)="new()"
+            >
+                <i class="fas fa-plus"></i> Agregar nuevo
+            </button>
+        </div>
+    </div>
+    <!-- / SELECCION DE COMERCIO -->
+
+    <!-- TABLA DE PRODUCTOS -->
+    <section>
+        <div class="row">
+            <div class="table-responsive text-nowrap text-center">
+                <table class="table table-sm table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Activo</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let b of banners$ | async">
+                            <td class="text-left">{{ b.id }}</td>
+                            <td class="text-left">{{ b.titulo }}</td>
+                            <td class="text-left">{{ b.descrip }}</td>
+                            <td>
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    [(ngModel)]="b.activo"
+                                    (change)="update(b)"
+                                />
+                            </td>
+                            <td>
+                                <img
+                                    [src]="
+                                        'https://your-domain.com.ar/banners/' +
+                                        b.url
+                                    "
+                                    width="100px"
+                                    height="100px"
+                                />
+                                <a
+                                    href="https://your-domain.com.ar/banners/{{
+                                        b.url
+                                    }}"
+                                    target="_blank"
+                                >
+                                    Ver imagen</a
+                                >
+                            </td>
+                            <td>
+                                <button (click)="edit(b)">Editar</button>
+                                <button (click)="delete(b.id)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <!-- / TABLA DE PRODUCTOS -->
+</div>

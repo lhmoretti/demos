@@ -1,0 +1,18 @@
+<div
+    class="container mt-3 bg-orange text-center p-3"
+    *ngIf="arrProductos.length != 0"
+>
+    <h3>Resultados para " {{ txtSearch }} "</h3>
+</div>
+
+<div class="container" *ngIf="arrProductos.length != 0">
+    <app-pagination></app-pagination>
+
+    <app-card-grid [arrProductos]="arrProductos"></app-card-grid>
+</div>
+
+<div class="container" *ngIf="arrProductos.length == 0">
+    <div class="container mt-3 bg-orange text-center p-3">
+        <h3>Upss! no tenemos productos para " {{ txtSearch }} "</h3>
+    </div>
+</div>

@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Préstamos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">ASC - DESC</ion-label>
+          <ion-select
+            placeholder="Selecccionar"
+            [(ngModel)]="ad"
+            (ionChange)="reset($event)"
+          >
+            <ion-select-option value="ASC">Ascendiente</ion-select-option>
+            <ion-select-option value="DESC">Descendiente</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Orden</ion-label>
+          <ion-select
+            placeholder="Selecccionar"
+            [(ngModel)]="order"
+            (ionChange)="reset($event)"
+          >
+            <ion-select-option value="monto">Monto</ion-select-option>
+            <ion-select-option value="saldo">Saldo</ion-select-option>
+            <ion-select-option value="estado">Estado</ion-select-option>
+            <ion-select-option value="fecha_hora">Fecha</ion-select-option>
+            <ion-select-option value="vencimiento"
+              >Vencimiento</ion-select-option
+            >
+            <ion-select-option value="tasa_interes"
+              >Tasa interés</ion-select-option
+            >
+            <ion-select-option value="intereses">Intereses</ion-select-option>
+            <ion-select-option value="cantidad_cuotas"
+              >Cant. cuotas</ion-select-option
+            >
+            <ion-select-option value="cuotas_pagadas"
+              >Cuotas pagadas</ion-select-option
+            >
+            <ion-select-option value="tipo_pago">Tipo pago</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Estado</ion-label>
+          <ion-select
+            placeholder="Selecccionar"
+            [(ngModel)]="estado"
+            (ionChange)="reset($event)"
+          >
+            <ion-select-option value="Todos">Todos</ion-select-option>
+            <ion-select-option value="Vigente">Vigente</ion-select-option>
+            <ion-select-option value="Deuda">Deuda</ion-select-option>
+            <ion-select-option value="Saldado">Saldado</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <app-paginacion (changePage)="pageChanged($event)"> </app-paginacion>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list>
+    <!-- (click)="verPrestamo(p.id)" -->
+    <ion-item-sliding
+      *ngFor="let p of prestamos"
+      (click)="verPrestamo(p.id)"
+      [ngClass]="{
+      'alert': p.estado === 'Vigente', 
+      'success': p.estado === 'Saldado',
+      'danger': p.estado === 'Deuda'    }"
+    >
+      <!-- <ng-container tappable #doubleTapDir (doubleTap)="verPrestamo(p.id)"> -->
+
+      <!-- <ion-item-options side="start">
+        <ion-item-option (click)="delete(p)">
+          <ion-icon name="create-outline"></ion-icon>
+          Eliminar
+        </ion-item-option>
+      </ion-item-options> -->
+
+      <ion-item>
+        <div slot="start" style="font-size: small">{{ p.id }}</div>
+
+        <ion-label doubleTapable>
+          <h2>{{ p.clienteId.nombre }} {{ p.clienteId.apellido }}</h2>
+          <small> Realizado: {{ p.fecha_hora | date: 'dd-MM-yyyy'}} </small>
+          <small> Vence: {{ p.vencimiento | date: 'dd-MM-yyyy'}} </small>
+        </ion-label>
+
+        <div slot="end">
+          <h4>{{ p.estado}}</h4>
+        </div>
+      </ion-item>
+      <!-- <div slot="start" style="font-size: small;">
+        {{ p.id }}
+      </div>
+
+      <ion-label>
+        <h2> {{ p.clienteId.nombre }} {{ p.clienteId.apellido }}</h2>
+        <small> Realizado: {{ p.fecha_hora | date: 'dd-MM-yyyy'}} </small>
+        <small> Vence: {{ p.vencimiento | date: 'dd-MM-yyyy'}} </small>
+      </ion-label>
+
+      <div slot="end">
+        <h4> {{ p.estado}} </h4>
+      </div> -->
+
+      <ion-item-options color="danger" side="end">
+        <ion-item-option (click)="delete(p)">
+          <ion-icon name="create-outline"></ion-icon>
+          Eliminar
+        </ion-item-option>
+      </ion-item-options>
+
+      <!-- </ng-container> -->
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

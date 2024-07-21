@@ -1,0 +1,8 @@
+{
+    "name": "habana",
+    "integrations": {
+        "capacitor": {},
+        "cordova": {}
+    },
+    "type": "angular"
+}

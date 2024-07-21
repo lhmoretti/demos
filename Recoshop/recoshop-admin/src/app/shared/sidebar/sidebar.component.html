@@ -1,0 +1,152 @@
+<div id="mySidenav" class="sidenav">
+    <img
+        [hidden]="!showDescrip"
+        src="https://your-domain.com.ar/cliente/assets/imgs/logo-recoshop.png"
+        width="100%"
+        height="50px"
+        alt=""
+    />
+
+    <div class="animated fadeInLeft">
+        <p
+            class="dir"
+            [routerLink]="['/dashboard']"
+            [ngClass]="{ active: urlActive == '/dashboard' }"
+            routerLinkActive="router-link-active"
+        >
+            <i class="fas fa-home icons"></i>
+            <span *ngIf="showDescrip"> Inicio </span>
+        </p>
+
+        <p
+            class="dir"
+            [routerLink]="['/pedidos']"
+            [ngClass]="{ active: urlActive == '/pedidos' }"
+        >
+            <i class="fas fa-shopping-bag ped-icon"></i>
+            <span *ngIf="showDescrip"> Pedidos </span>
+        </p>
+
+        <p
+            *ngIf="usuario.role == 1"
+            class="dir"
+            [routerLink]="['/usuarios']"
+            [ngClass]="{ active: urlActive == '/usuarios' }"
+        >
+            <i class="fas fa-users icons"></i>
+            <span *ngIf="showDescrip"> Usuarios </span>
+        </p>
+
+        <p
+            *ngIf="usuario.role == 2"
+            class="dir"
+            [routerLink]="['/mis-comercios']"
+            [ngClass]="{ active: urlActive == '/mis-comercios' }"
+        >
+            <i class="fas fa-store icons"></i>
+            <span *ngIf="showDescrip"> Mis comercios </span>
+        </p>
+
+        <p
+            *ngIf="usuario.role == 1"
+            class="dir"
+            [routerLink]="['/comercios']"
+            [ngClass]="{ active: urlActive == '/comercios' }"
+        >
+            <i class="fas fa-store icons"></i>
+            <span *ngIf="showDescrip"> Comercios </span>
+        </p>
+
+        <p
+            class="dir"
+            [routerLink]="['/productos']"
+            [ngClass]="{ active: urlActive == '/productos' }"
+        >
+            <i class="fas fa-cubes icons"></i>
+            <span *ngIf="showDescrip"> Productos </span>
+        </p>
+
+        <p
+            class="dir"
+            [routerLink]="['/envios']"
+            [ngClass]="{ active: urlActive == '/envios' }"
+        >
+            <i class="fas fa-shipping-fast icons"></i>
+            <span *ngIf="showDescrip"> Envíos </span>
+        </p>
+
+        <p
+            class="dir"
+            [routerLink]="['/formas-de-pago']"
+            [ngClass]="{ active: urlActive == '/formas-de-pago' }"
+        >
+            <i class="fas fa-money-check icons"></i>
+            <span *ngIf="showDescrip"> Formas de Pago </span>
+        </p>
+
+        <p
+            class="dir"
+            [routerLink]="['/estadisticas']"
+            [ngClass]="{ active: urlActive == '/estadisticas' }"
+        >
+            <i class="fas fa-chart-line icons"></i>
+            <span *ngIf="showDescrip"> Estadísticas </span>
+        </p>
+
+        <p
+            *ngIf="usuario.role == 1"
+            class="dir"
+            [routerLink]="['/banners']"
+            [ngClass]="{ active: urlActive == '/banners' }"
+        >
+            <i class="fas fa-bullhorn icons"></i>
+            <span *ngIf="showDescrip"> Banners </span>
+        </p>
+
+        <p
+            *ngIf="usuario.role == 1"
+            class="dir"
+            [routerLink]="['/configuraciones']"
+            [ngClass]="{ active: urlActive == '/configuraciones' }"
+        >
+            <i class="fas fa-cogs icons"></i>
+            <span *ngIf="showDescrip"> Configuraciones </span>
+        </p>
+
+        <p
+            *ngIf="usuario.role == 1"
+            class="dir"
+            [routerLink]="['/suscripciones']"
+            [ngClass]="{ active: urlActive == '/suscripciones' }"
+        >
+            <i class="fas fa-rss-square icons"></i>
+            <span *ngIf="showDescrip"> Suscripciones </span>
+        </p>
+
+        <p
+            *ngIf="usuario.role == 1"
+            class="dir"
+            [routerLink]="['/planes-de-pago']"
+            [ngClass]="{ active: urlActive == '/planes-de-pago' }"
+        >
+            <i class="fas fa-comment-dollar icons"></i>
+            <span *ngIf="showDescrip"> Planes de pago </span>
+        </p>
+
+        <p
+            class="dir"
+            [routerLink]="['/conf-mercado-pago']"
+            [ngClass]="{ active: urlActive == '/conf-mercado-pago' }"
+        >
+            <img
+                src="assets/images/mep-logo.webp"
+                style="max-height: 25px; margin-left: 5px; max-width: 25px"
+                alt=""
+            />
+
+            <span *ngIf="showDescrip" style="margin-left: 35px">
+                Mercado Pago
+            </span>
+        </p>
+    </div>
+</div>

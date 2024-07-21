@@ -1,0 +1,42 @@
+<div class="mb-5">
+    <h5>Suscripciones</h5>
+
+    <div class="row mt-2">
+        <div class="col-md-12 col-sm-12">
+            <app-paginacion (changePage)="pageChanged($event)">
+            </app-paginacion>
+        </div>
+    </div>
+
+    <section>
+        <div class="row">
+            <div class="table-responsive text-nowrap text-center">
+                <table class="table table-sm table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let s of suscripciones$ | async">
+                            <td>{{ s.id }}</td>
+                            <td>{{ s.nombre }}</td>
+                            <td>{{ s.email }}</td>
+                            <td>
+                                <button
+                                    class="btn btn-sm btn-danger"
+                                    (click)="delete(s.id)"
+                                >
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

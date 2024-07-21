@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="12">
+        <!-- Searchbar with cancel button shown on focus -->
+        <ion-searchbar
+          showCancelButton="focus"
+          [(ngModel)]="filter"
+          #input
+          placeholder="Buscar cliente.."
+        >
+        </ion-searchbar>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Filtrar por..</ion-label>
+          <ion-select
+            placeholder="Selecccionar"
+            [(ngModel)]="attr"
+            (ionChange)="reset($event)"
+          >
+            <ion-select-option value="nombre">Nombre</ion-select-option>
+            <ion-select-option value="apellido">Apellido</ion-select-option>
+            <ion-select-option value="telefono">Telefono</ion-select-option>
+            <ion-select-option value="domicilio">Domicilio</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <app-paginacion (changePage)="pageChanged($event)"> </app-paginacion>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="new()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let c of clientes$ | async">
+      <ion-item-options side="start">
+        <ion-item-option (click)="edit(c)">
+          <ion-icon name="create-outline"></ion-icon>
+          Editar
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item>
+        <div slot="start">
+          <ion-button
+            shape="round"
+            fill="outline"
+            size="small"
+            color="primary"
+            (click)="newPrestamo(c)"
+          >
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </div>
+        <ion-label (click)="verPrestamos(c.id)">
+          {{ c.apellido }} {{ c.nombre }}</ion-label
+        >
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="delete(c.id)" color="danger">
+          <ion-icon name="trash-outline"></ion-icon>
+          Borrar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

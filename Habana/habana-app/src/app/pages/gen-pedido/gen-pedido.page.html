@@ -1,0 +1,105 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Generar pedido</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col size="12">
+                <ion-item>
+                    <ion-label>Seleccionar mesas</ion-label>
+                    <ion-select
+                        [(ngModel)]="Pedido.mesa"
+                        interface="action-sheet"
+                        mode="ios"
+                        cancelText="Cancelar"
+                        required
+                    >
+                        <ion-select-option
+                            [value]="mesa"
+                            *ngFor="let mesa of arrMesas"
+                            >Mesa {{mesa.numero}}</ion-select-option
+                        >
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+
+            <ion-col size="12">
+                <ion-button
+                    class="ion-margin-top"
+                    [routerLink]="['/main/lista-prods-add']"
+                    expand="block"
+                >
+                    Agregar comidas
+                    <ion-icon slot="end" name="add-circle-outline"></ion-icon>
+                </ion-button>
+            </ion-col>
+
+            <ion-col size="12">
+                <ion-textarea
+                    [(ngModel)]="Pedido.descripcion"
+                    placeholder="Descripción"
+                >
+                </ion-textarea>
+            </ion-col>
+
+            <ion-col size="12" *ngIf="arrProductosAgregados.length != 0">
+                <ion-list fixed>
+                    <ion-item *ngFor="let prod of arrProductosAgregados">
+                        <div slot="start">
+                            <ion-label>
+                                <h2>{{prod.codigo}}</h2>
+                            </ion-label>
+                        </div>
+                        <ion-label>
+                            <h2>{{prod.nombre}}</h2>
+                        </ion-label>
+                        <div slot="end">
+                            <ion-label>
+                                <h2>
+                                    {{prod.precio | currency:'ARS': 'symbol' :
+                                    '1.0-0'}} x{{prod.cantidad}}
+                                </h2>
+                            </ion-label>
+                        </div>
+
+                        <ion-button
+                            color="danger"
+                            (click)="quitarProducto(prod)"
+                            slot="end"
+                        >
+                            <ion-icon
+                                slot="icon-only"
+                                name="close-circle-outline"
+                            ></ion-icon>
+                        </ion-button>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-title *ngIf="Total > 0" slot="end">
+            Total: {{Total | currency:'ARS': 'symbol' : '3.0'}}
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button
+                fill="solid"
+                color="primary"
+                slot="end"
+                (click)="enviarPedido()"
+            >
+                Enviar pedido
+                <ion-icon slot="end" name="send-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

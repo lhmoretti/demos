@@ -1,0 +1,11 @@
+<div class="mt-3 mb-5">
+    <i class="fas fa-arrow-left btn-flechas d-inline" (click)="anterior()"></i>
+
+    <p class="paginina d-inline">Pag. {{ pagina + 1 }}</p>
+
+    <i
+        class="fas fa-arrow-right btn-flechas d-inline"
+        [ngClass]="{ 'btn-disabled': disable }"
+        (click)="siguiente()"
+    ></i>
+</div>

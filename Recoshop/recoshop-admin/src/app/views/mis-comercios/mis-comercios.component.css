@@ -1,0 +1,64 @@
+.card {
+    width: unset !important;
+}
+
+.img-banner {
+    height: auto;
+    width: 100%;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.img-logo {
+    z-index: 2;
+    border: white;
+    border-width: 5px;
+    border-style: solid;
+    margin-top: -100px;
+    margin-left: 100px;
+    height: 150px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.ngxImageZoomThumbnail {
+    height: 300px !important;
+    width: 300px !important;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.ngxImageZoomContainer {
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    pointer-events: none;
+    height: 300px !important;
+    width: 300px !important;
+    /* max-width: 300px !important;
+  max-height: 300px !important; */
+}
+
+.precio {
+    font-size: 22px;
+    color: #e5610f;
+}
+
+.img-slide {
+    height: 350;
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px #e5610f;
+}

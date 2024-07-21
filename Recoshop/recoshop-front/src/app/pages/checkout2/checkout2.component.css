@@ -1,0 +1,27 @@
+.top-content {
+    margin-top: 15px;
+    background-color: white;
+    margin-bottom: 15px;
+}
+.txt-titulo {
+    font-weight: 800;
+}
+.bg-lightgray {
+    background-color: lightgray;
+}
+
+.main-content {
+    background-color: white;
+}
+.selected {
+    box-shadow: 3px 3px 7px 3px #e7600f;
+    color: #e7600f;
+}
+
+.info {
+    border-width: 1px;
+    color: white;
+    border-style: solid;
+    padding: 10px 10px;
+    background-color: yellowgreen;
+}

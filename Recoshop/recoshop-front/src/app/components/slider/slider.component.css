@@ -1,0 +1,7 @@
+/* .img{
+    height: 100%;
+    width: auto;
+} */
+.img:hover {
+    cursor: pointer;
+}

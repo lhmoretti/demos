@@ -1,0 +1,22 @@
+{
+    "MetodosPagos": [
+        {
+            "descrip": "Acordar con el vendedor",
+            "selected": true,
+            "active": true,
+            "icon": "fas fa-user-friends"
+        },
+        {
+            "descrip": "Mercado Pago",
+            "selected": false,
+            "active": true,
+            "icon": "fas fa-money-bill-wave"
+        },
+        {
+            "descrip": "Codigo QR",
+            "selected": false,
+            "active": true,
+            "icon": "fas fa-qrcode"
+        }
+    ]
+}

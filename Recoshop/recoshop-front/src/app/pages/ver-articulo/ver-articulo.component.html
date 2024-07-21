@@ -1,0 +1,305 @@
+<div class="container animated fadeIn">
+    <div class="row">
+        <div class="col-md-7 text-center">
+            <div class="mt-5">
+                <div class="single-img contenedor-imagen" *ngIf="selectedImg">
+                    <img
+                        [src]="
+                            selectedImg.url
+                                ? selectedImg.url
+                                : 'assets/imgs/no-image.png'
+                        "
+                        class="img-prod"
+                        alt=""
+                    />
+                </div>
+                <div class="single-img" *ngIf="!selectedImg">
+                    <img
+                        [src]="'assets/imgs/no-image.png'"
+                        class="img-prod"
+                        alt=""
+                    />
+                </div>
+                <div class="all-imgs" *ngIf="arrImagenes.length != 0">
+                    <owl-carousel-o>
+                        <ng-template
+                            [options]="optsImgsProductos"
+                            carouselSlide
+                            *ngFor="let imgs of arrImagenes"
+                        >
+                            <div class="cont-img">
+                                <img
+                                    (click)="selectImg(imgs)"
+                                    [src]="
+                                        imgs.url
+                                            ? imgs.url
+                                            : 'assets/imgs/no-image.png'
+                                    "
+                                    class="img-carousel"
+                                />
+                            </div>
+                        </ng-template>
+                    </owl-carousel-o>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <h3 class="mt-4">{{ Producto.nombre }}</h3>
+            <div class="card bg-light p-3 mt-4 box-info-producto">
+                <div class="row box-precio">
+                    <div class="col-md-12 col-sm-12">
+                        <span
+                            *ngIf="Producto?.precio_oferta"
+                            class="card-text precio"
+                        >
+                            {{
+                                Producto?.precio_oferta
+                                    | currency : 'ARS' : 'symbol' : '3.0'
+                            }}
+                        </span>
+                        <span
+                            class="card-text precio"
+                            [ngClass]="{ tachar: Producto?.precio_oferta }"
+                        >
+                            {{
+                                Producto?.precio_venta
+                                    | currency : 'ARS' : 'symbol' : '3.0'
+                            }}
+                        </span>
+                    </div>
+                </div>
+                <!-- <p class="precio"> {{Producto?.precio_venta | currency:'ARS': 'symbol'}}</p> -->
+                <p class="item-info">
+                    Comercio:
+                    <a
+                        (click)="
+                            verComercio(
+                                Producto.comercioId?.id,
+                                Producto.comercioId?.nombre
+                            )
+                        "
+                    >
+                        {{ Producto.comercioId?.nombre }}</a
+                    >
+                </p>
+                <p class="item-info" *ngIf="Producto.marcaId">
+                    Marca: {{ Producto.marcaId?.marca }}
+                </p>
+                <p class="item-info" *ngIf="!Producto.marcaId">
+                    Marca:
+                    <span class="badge badge-pill badge-primary bg-badge"
+                        >Sin marca</span
+                    >
+                </p>
+                <p>
+                    Disponibilidad:
+                    <span
+                        *ngIf="Producto.stock_actual <= 0"
+                        class="badge badge-pill badge-primary bg-badge"
+                    >
+                        Sin stock
+                    </span>
+                    <span
+                        *ngIf="Producto.stock_actual > 0"
+                        class="badge badge-pill badge-primary bg-badge"
+                    >
+                        {{ Producto.stock_actual }}
+                    </span>
+                </p>
+                <div class="input-cant" *ngIf="Producto.disponible_compra">
+                    <button
+                        (click)="restarCantidad(Producto.unidad)"
+                        class="btn btn-sm btn-secondary bg-badge"
+                    >
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input
+                        [(ngModel)]="Cantidad"
+                        [step]="Producto.unidad"
+                        type="number"
+                        class="input-cant-size"
+                    />
+                    <button
+                        (click)="sumarCantidad(Producto.unidad)"
+                        class="btn btn-sm btn-secondary bg-badge"
+                    >
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+
+                <button
+                    [disabled]="Producto.stock_actual <= 0"
+                    class="btn mt-3 bg-orange"
+                    *ngIf="Producto.disponible_compra"
+                    (click)="agregarCarrito(Producto)"
+                >
+                    AGREGAR AL CARRITO
+                </button>
+                <!-- <button type="button"  class="btn bg-orange" data-toggle="modal"
+          data-target="#exampleModal">
+          CONSULTAR AL VENDEDOR
+        </button> -->
+                <a
+                    target="_blank"
+                    href="https://api.whatsapp.com/send?phone=+54{{
+                        Producto.comercioId?.telefono
+                    }}&text=Hola!%20te%20escribo%20desde%20Recoshop!%20estoy%20interesado%20por%20{{
+                        Producto.nombre
+                    }}&utm_source=tienda&utm_medium=boton_wsp&utm_campaign={{
+                        Producto.nombre
+                    }}"
+                    class="btn btn-outline-success mt-3"
+                >
+                    <i class="fab fa-whatsapp"></i> CONSULTAR AL VENDEDOR</a
+                >
+                <hr />
+                <p><b>Este comercio ofrece:</b></p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="mb-2 mt-3">Formas de entrega:</p>
+                    </div>
+                    <div
+                        class="col-6 col-sm-6 col-sm-4 col-lg-4"
+                        *ngIf="Producto?.comercioId?.e_delivery"
+                    >
+                        <img
+                            width="100%"
+                            src="assets/imgs/envio-domicilio-recoshop.png"
+                        />
+                    </div>
+                    <div
+                        class="col-6 col-sm-6 col-sm-4 col-lg-4"
+                        *ngIf="Producto?.comercioId?.e_retiro_sucursal"
+                    >
+                        <img
+                            width="100%"
+                            src="assets/imgs/retiro-sucursal-recoshop.png"
+                        />
+                    </div>
+                    <div
+                        class="col-6 col-sm-6 col-sm-4 col-lg-4"
+                        *ngIf="Producto?.comercioId?.e_acuerdo_vendedor"
+                    >
+                        <img
+                            width="100%"
+                            src="assets/imgs/recoshop-acuerdo-vendedor.png"
+                        />
+                    </div>
+                    <div class="col-md-12">
+                        <p class="mb-2 mt-2">Formas de pagos:</p>
+                    </div>
+                    <!-- <div class="col-sm-4 col-lg-4" *ngIf="Producto?.comercioId?.mp_pago_posnet"><img width="100%" src="assets/imgs/recoshop-pago-con-pos.png"></div> -->
+                    <div
+                        class="col-6 col-sm-6 col-sm-4 col-lg-4"
+                        *ngIf="Producto?.comercioId?.mp_trans_banc"
+                    >
+                        <img
+                            width="100%"
+                            src="assets/imgs/recoshop-banco.png"
+                        />
+                    </div>
+                    <div
+                        class="col-6 col-sm-6 col-sm-4 col-lg-4"
+                        *ngIf="Producto?.comercioId?.mp_abono_contra"
+                    >
+                        <img
+                            width="100%"
+                            src="assets/imgs/recoshop-abono-contrarrembolso.png"
+                        />
+                    </div>
+                    <div
+                        class="col-6 col-sm-6 col-sm-4 col-lg-4"
+                        *ngIf="Producto?.comercioId?.mp_acuerdo_vendedor"
+                    >
+                        <img
+                            width="100%"
+                            src="assets/imgs/recoshop-acuerdo-vendedor.png"
+                        />
+                    </div>
+                    <div
+                        class="col-6 col-sm-6 col-sm-4 col-lg-4"
+                        *ngIf="Producto?.comercioId?.mp_pago_sucursal"
+                    >
+                        <img
+                            width="100%"
+                            src="assets/imgs/recoshop-pago-sucursal.jpeg"
+                        />
+                    </div>
+                </div>
+            </div>
+            <!--<div class="mt-3">
+        <span>Compartí este artículo en: </span>
+        <div class="cont-icon-share">
+         <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.your-domain.com.ar/ver-articulo/1/ORBIS-CALEFACTOR-T%2FBALANC.POST-3800-CL%2FH-inc.-conj" >
+          <i class="fab fa-facebook-square lg-2  icon-size"></i>
+        </a>
+        </div>
+      </div>-->
+        </div>
+        <div class="col-md-6 mt-4 pt-4">
+            <h4><b>Características destacadas</b></h4>
+            <p [innerHtml]="Producto.descripcion"></p>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="productosRelacionados.length > 0">
+    <app-card-swiper
+        class="mt-3"
+        [Titulo]="Titulo"
+        [optSwiper]="optsCarousel"
+        [arrArts]="productosRelacionados"
+    ></app-card-swiper>
+</div>
+
+<!-- Modal -->
+<div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title txt-orange" id="exampleModalLabel">
+                    {{ Producto.comercioId?.nombre }}
+                </h3>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Los datos para consultar son:</h5>
+                <p>
+                    <i class="fas fa-phone"></i>
+                    {{ Producto.comercioId?.telefono }}
+                </p>
+                <p>
+                    <i class="fas fa-envelope-open-text"></i>
+                    {{ Producto.comercioId?.email }}
+                </p>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ Producto.comercioId?.domicilio }}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn bg-orange"
+                    data-dismiss="modal"
+                >
+                    CERRAR
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

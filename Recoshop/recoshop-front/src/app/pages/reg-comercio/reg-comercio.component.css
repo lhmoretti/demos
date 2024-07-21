@@ -1,0 +1,37 @@
+.cont-nivel {
+    position: relative;
+    margin: 0 auto;
+    border-radius: 20px;
+    border: 1.5px solid;
+    width: 270px;
+    margin-bottom: 25px;
+}
+
+.cont-plan:hover {
+    cursor: pointer;
+    box-shadow: 3px 2px #e7600f;
+    -webkit-box-shadow: 0px 0px 3px 1px #e7600f;
+    -moz-box-shadow: 0px 0px 3px 1px #e7600f;
+    box-shadow: 0px 0px 3px 1px #e7600f;
+    transition: 300ms;
+}
+.select-plan {
+    box-shadow: 3px 2px #e7600f;
+    -webkit-box-shadow: 0px 0px 3px 1px #e7600f;
+    -moz-box-shadow: 0px 0px 3px 1px #e7600f;
+    box-shadow: 0px 0px 3px 1px #e7600f;
+    transition: 300ms;
+}
+
+.txt-link {
+    color: #e7600f;
+}
+.txt-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #e7600f;
+}
+
+.icon-size {
+    font-size: 40px;
+}

@@ -1,0 +1,14 @@
+<div class="container text-center mt-4" *ngIf="arrProductos.length != 0">
+    <h3 class="txt-orange">{{ arrProductos[0].categoriaId.categoria }}</h3>
+
+    <div class="container">
+        <app-pagination></app-pagination>
+        <app-card-grid [arrProductos]="arrProductos"></app-card-grid>
+    </div>
+</div>
+
+<div class="txt-orange mt-5" *ngIf="arrProductos.length == 0">
+    <h4 class="text-center">
+        ¡Lo sentimos! Por el momento no hay productos para mostrar
+    </h4>
+</div>

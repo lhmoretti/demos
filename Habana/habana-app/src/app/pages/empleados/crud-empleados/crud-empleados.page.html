@@ -1,0 +1,127 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/main/empleados"></ion-back-button>
+        </ion-buttons>
+        <div *ngIf="showActualizar; else loggedOut">
+            <ion-title>Actualizar empleado</ion-title>
+        </div>
+
+        <ng-template #loggedOut>
+            <ion-title>Agregar empleado</ion-title>
+        </ng-template>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form #fEmpleado="ngForm" (ngSubmit)="enviarEmpleado(fEmpleado)">
+        <ion-row>
+            <ion-col class="ion-text-center" size="12">
+                <ion-icon
+                    name="person-circle"
+                    color="primary"
+                    class="size-icon"
+                ></ion-icon>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">Nombre</ion-label>
+                    <ion-input
+                        type="text"
+                        name="nombre"
+                        [(ngModel)]="Empleado.nombre"
+                        required
+                    ></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">Apellido</ion-label>
+                    <ion-input
+                        type="text"
+                        name="apellido"
+                        [(ngModel)]="Empleado.apellido"
+                        required
+                    ></ion-input>
+                </ion-item>
+            </ion-col>
+            <!-- <ion-col size="12">
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" name="email" [(ngModel)]="Empleado.email" required></ion-input>
+      </ion-item>
+    </ion-col> -->
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">Usuario</ion-label>
+                    <ion-input
+                        autocomplete="off"
+                        name="usuario"
+                        [(ngModel)]="Empleado.username"
+                        required
+                    ></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label position="floating">Contraseña</ion-label>
+                    <ion-input
+                        autocomplete="off"
+                        name="password"
+                        type="password"
+                        [(ngModel)]="Empleado.password"
+                        required
+                    ></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label>Rol</ion-label>
+                    <ion-select
+                        name="role"
+                        [(ngModel)]="Empleado.role"
+                        interface="action-sheet"
+                        mode="ios"
+                        ok-text="Listo"
+                        cancel-text="Cancelar"
+                        required
+                    >
+                        <ion-select-option value="ADMIN"
+                            >Admin</ion-select-option
+                        >
+                        <ion-select-option value="MOZO">Mozo</ion-select-option>
+                        <ion-select-option value="COCINERO"
+                            >Cocina</ion-select-option
+                        >
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item>
+                    <ion-label>Activo</ion-label>
+                    <ion-toggle
+                        name="activo"
+                        [(ngModel)]="Empleado.activo"
+                    ></ion-toggle>
+                </ion-item>
+            </ion-col>
+
+            <ion-col size="12">
+                <ion-button
+                    *ngIf="showActualizar"
+                    type="submit"
+                    expand="block"
+                    fill="outline"
+                    >Actualizar</ion-button
+                >
+                <ion-button
+                    *ngIf="!showActualizar"
+                    type="submit"
+                    expand="block"
+                    fill="outline"
+                    >Agregar</ion-button
+                >
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-content>

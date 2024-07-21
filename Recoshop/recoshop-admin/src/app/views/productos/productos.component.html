@@ -1,0 +1,356 @@
+<div class="mb-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">Productos</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10">
+            <ul
+                [hidden]="showForm"
+                class="nav nav-tabs"
+                id="myTab"
+                role="tablist"
+            >
+                <li class="nav-item">
+                    <a
+                        class="nav-link active"
+                        id="articulos-tab"
+                        data-toggle="tab"
+                        href="#articulos"
+                        role="tab"
+                        aria-controls="articulos"
+                        aria-selected="true"
+                        >Productos</a
+                    >
+                </li>
+                <li *ngIf="idPrivilegio === 1" class="nav-item">
+                    <a
+                        class="nav-link"
+                        id="categorias-tab"
+                        data-toggle="tab"
+                        href="#categorias"
+                        role="tab"
+                        aria-controls="categorias"
+                        aria-selected="false"
+                        (click)="showCategorias = true"
+                        >Categorías</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        id="marcas-tab"
+                        data-toggle="tab"
+                        href="#marcas"
+                        role="tab"
+                        aria-controls="marcas"
+                        aria-selected="false"
+                        (click)="showMarcas = true"
+                        >Marcas</a
+                    >
+                </li>
+                <li *ngIf="idPrivilegio === 1" class="nav-item">
+                    <a
+                        class="nav-link"
+                        id="prodsprom-tab"
+                        data-toggle="tab"
+                        href="#prodsprom"
+                        role="tab"
+                        aria-controls="prodsprom"
+                        aria-selected="false"
+                        (click)="showPromocion = true"
+                        >Prods. Promoción</a
+                    >
+                </li>
+                <li *ngIf="idPrivilegio === 1" class="nav-item">
+                    <a
+                        class="nav-link"
+                        id="prodsdes-tab"
+                        data-toggle="tab"
+                        href="#prodsdes"
+                        role="tab"
+                        aria-controls="prodsdes"
+                        aria-selected="false"
+                        (click)="showDestacados = true"
+                        >Prods. Destacados</a
+                    >
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tab-content" id="myTabContent">
+        <!-- TAB SECCION DE PRODUCTOS -->
+        <div
+            class="tab-pane fade show active"
+            id="articulos"
+            role="tabpanel"
+            aria-labelledby="articulos-tab"
+        >
+            <!-- SECCION DE FILTRADO Y PAGINADO -->
+            <div *ngIf="!showForm" class="row mt-2">
+                <div class="col-md-3 col-sm-3">
+                    <select
+                        name="filter"
+                        [(ngModel)]="filter"
+                        (change)="getByFilter()"
+                        class="form-control form-control-sm"
+                    >
+                        <option value="F">Filtrar por..</option>
+                        <!-- <option *ngIf="idPrivilegio === 1" value="comercio">Comercio</option> -->
+                        <option *ngIf="idPrivilegio === 1" value="categoria">
+                            Categorías
+                        </option>
+                        <!--Filtrados de Dest. y prom. que se muestran en la página, no del comercio  -->
+                        <option *ngIf="idPrivilegio === 1" value="prom">
+                            Promoción página
+                        </option>
+                        <option *ngIf="idPrivilegio === 1" value="dest">
+                            Destacados página
+                        </option>
+                        <!--Filtrados de Dest. y prom. del comercio  -->
+                        <option *ngIf="idPrivilegio === 2" value="prom">
+                            Promoción
+                        </option>
+                        <option *ngIf="idPrivilegio === 2" value="dest">
+                            Destacados
+                        </option>
+                    </select>
+                </div>
+                <!-- <div *ngIf="filter === 'comercio'" class="col-md-3 col-sm-4">
+          <select class="form-control form-control-sm" [(ngModel)]="idComercio" (change)="getProdsByComercio()">
+            <option value="F" selected>Seleccionar comercio</option>
+            <option *ngFor="let c of arrComercios" [value]="c.id"> {{ c.nombre }} </option>
+          </select>
+        </div> -->
+
+                <div *ngIf="filter === 'categoria'" class="col-md-3 col-sm-4">
+                    <select
+                        class="form-control form-control-sm"
+                        [(ngModel)]="idCategoriaForProds"
+                        (change)="getProductosPagComCat()"
+                    >
+                        <option value="F" selected>
+                            Seleccionar categoría
+                        </option>
+                        <option
+                            *ngFor="let c of categorias$ | async"
+                            [value]="c.id"
+                        >
+                            {{ c.categoria }}
+                        </option>
+                    </select>
+                </div>
+
+                <div *ngIf="filter == 'F'" class="col-md-3 col-sm-2">
+                    <!-- Vacio -->
+                </div>
+            </div>
+            <!-- / SECCION DE FILTRADO Y PAGINADO -->
+
+            <!-- SELECCION DE COMERCIO -->
+            <div *ngIf="!showForm" class="row">
+                <div class="col-md-4">
+                    <select
+                        class="form-control form-control-sm"
+                        [(ngModel)]="idComercio"
+                        (change)="getPag()"
+                    >
+                        <!-- <option value="" selected> Seleccionar comercio </option> -->
+                        <option
+                            *ngFor="let c of comercios$ | async"
+                            [value]="c.id"
+                        >
+                            {{ c.nombre }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-8">
+                    <app-paginacion (changePage)="pageChanged($event)">
+                    </app-paginacion>
+                    <button
+                        class="btn btn-sm btn-primary float-right mr-3"
+                        (click)="new()"
+                    >
+                        <i class="fas fa-plus"></i> Agregar nuevo
+                    </button>
+                    <!-- <button class="btn btn-sm btn-info float-right mr-3" [routerLink]="['/import-csv']"
+            routerLinkActive="router-link-active">
+            <i class="fas fa-plus"></i> Importar productos
+          </button> -->
+                </div>
+            </div>
+            <!-- / SELECCION DE COMERCIO -->
+
+            <div *ngIf="showForm" class="row">
+                <div class="col-md-12 col-sm-12">
+                    <button
+                        class="btn btn-sm btn-primary float-right"
+                        (click)="volver()"
+                    >
+                        Volver
+                    </button>
+                </div>
+            </div>
+
+            <!-- TABLA DE PRODUCTOS -->
+            <section>
+                <div *ngIf="!showForm" class="row">
+                    <div class="table-responsive text-nowrap text-center">
+                        <table class="table table-sm table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <!-- <th scope="col">ID</th> -->
+                                    <th scope="col">Título</th>
+                                    <!-- <th scope="col">Descripción</th> -->
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Precio Venta</th>
+                                    <th scope="col">Destacado</th>
+                                    <th scope="col">Promoción</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="
+                                        let p of productos$ | async;
+                                        let i = index
+                                    "
+                                >
+                                    <!-- <button id="btnEnter" hidden (click)="update(p)"></button> -->
+                                    <!-- <td class="text-left">{{p.id}}</td> -->
+                                    <td class="text-left">{{ p.nombre }}</td>
+                                    <!-- <td class="text-left">{{p.descripcion | slice:0:13}}</td> -->
+                                    <td>
+                                        <p>{{ p.stock_actual }}</p>
+                                    </td>
+                                    <td>
+                                        {{
+                                            p.precio_venta
+                                                | currency : 'ARS' : 'symbol'
+                                        }}
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            [(ngModel)]="p.destacado_comercio"
+                                            disabled
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            [(ngModel)]="p.promocion_comercio"
+                                            disabled
+                                        />
+                                    </td>
+                                    <td>
+                                        <button
+                                            class="btn btn-primary btn-sm m-1"
+                                            (click)="passArt(p)"
+                                            title="Editar"
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <!-- <button class="btn btn-danger btn-sm m-1" (click)="archivar(p)" title="Eliminar">
+                      <i class="fas fa-archive"></i>
+                    </button> -->
+                                        <button
+                                            class="btn btn-sm btn-acciones"
+                                            [ngClass]="{
+                                                'btn-outline-danger':
+                                                    !p.archivado,
+                                                'btn-outline-success':
+                                                    p.archivado,
+                                            }"
+                                            (click)="archivar(p)"
+                                        >
+                                            <span
+                                                *ngIf="p.archivado"
+                                                title="Habilitar"
+                                            >
+                                                <i
+                                                    class="fas fa-check-circle"
+                                                ></i>
+                                            </span>
+                                            <span
+                                                *ngIf="!p.archivado"
+                                                title="Pausar"
+                                            >
+                                                <i
+                                                    class="fas fa-exclamation"
+                                                ></i>
+                                            </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div *ngIf="showLoading" class="mt-3">
+                            <img
+                                src="assets/images/loading.gif"
+                                width="120"
+                                height="120"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <app-form-producto></app-form-producto>
+                </div>
+            </section>
+            <!-- / TABLA DE PRODUCTOS -->
+        </div>
+        <!-- / TAB SECCION DE PRODUCTOS -->
+
+        <div
+            *ngIf="showCategorias"
+            class="tab-pane fade"
+            id="categorias"
+            role="tabpanel"
+            aria-labelledby="categorias-tab"
+        >
+            <app-categorias></app-categorias>
+        </div>
+
+        <div
+            *ngIf="showMarcas"
+            class="tab-pane fade"
+            id="marcas"
+            role="tabpanel"
+            aria-labelledby="marcas-tab"
+        >
+            <app-marcas></app-marcas>
+        </div>
+
+        <div
+            *ngIf="showPromocion"
+            class="tab-pane fade"
+            id="prodsprom"
+            role="tabpanel"
+            aria-labelledby="prodsprom-tab"
+        >
+            <small>
+                * Productos en Promoción que se mostrarán en el sitio.
+            </small>
+            <app-promocion></app-promocion>
+        </div>
+
+        <div
+            *ngIf="showDestacados"
+            class="tab-pane fade"
+            id="prodsdes"
+            role="tabpanel"
+            aria-labelledby="prodsdes-tab"
+        >
+            <small>
+                * Productos Destacados que se mostrarán en el sitio.
+            </small>
+            <app-destacados></app-destacados>
+        </div>
+    </div>
+</div>

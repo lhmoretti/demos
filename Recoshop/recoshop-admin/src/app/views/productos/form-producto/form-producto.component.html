@@ -1,0 +1,445 @@
+<div *ngIf="showForm">
+    <div class="mt-2" role="alert">
+        <div>
+            <form (ngSubmit)="send()">
+                <label><b style="color: red">* </b> Tipo de Venta:</label>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="tipo-venta">
+                                <div
+                                    class="alert"
+                                    [ngClass]="{
+                                        'alert-success': showPermiteCompra,
+                                        'alert-info': !showPermiteCompra,
+                                    }"
+                                    name="tipo1"
+                                    id="pc"
+                                    (click)="setTipoVenta(1)"
+                                >
+                                    <i
+                                        *ngIf="showPermiteCompra"
+                                        class="fas fa-check"
+                                    ></i>
+                                    Disponible para venta online
+                                    <br />
+                                    <small
+                                        >Esta opción permite que el comprador
+                                        agregue su producto al carrito de
+                                        pedidos.(recomendado)
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="tipo-venta">
+                                <div
+                                    class="alert"
+                                    [ngClass]="{
+                                        'alert-success': showPermiteConsulta,
+                                        'alert-info': !showPermiteConsulta,
+                                    }"
+                                    name="tipo2"
+                                    id="pcon"
+                                    (click)="setTipoVenta(2)"
+                                >
+                                    <i
+                                        *ngIf="showPermiteConsulta"
+                                        class="fas fa-check"
+                                    ></i>
+                                    Modo vidriera
+                                    <br />
+                                    <small
+                                        >Esta opción no muestra los precios y
+                                        solo podrá contactarse vía mensajes
+                                        desde la web.</small
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group col-md-12">
+                            <label><b style="color: red">* </b>Título: </label>
+                            <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                [(ngModel)]="ProductosForm.nombre"
+                                [ngModelOptions]="{ standalone: true }"
+                                required
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- COLUMNA 1 -->
+                    <div class="col-md-6">
+                        <div class="form-group col-md-12">
+                            <label> Código: </label>
+                            <input
+                                type="text"
+                                class="form-control form-control-sm"
+                                [(ngModel)]="ProductosForm.sku"
+                                [ngModelOptions]="{ standalone: true }"
+                                required
+                            />
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label
+                                    ><b style="color: red">* </b>Precio venta:
+                                </label>
+                                <input
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="ProductosForm.precio_venta"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label> Precio oferta: </label>
+                                <input
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="ProductosForm.precio_oferta"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label
+                                    ><b style="color: red">* </b>
+                                    Categoría:
+                                    <img
+                                        *ngIf="showLoading"
+                                        src="assets/images/loading.gif"
+                                        width="20"
+                                        height="20"
+                                    />
+                                    <a *ngIf="!showLoading" class="a-refresh">
+                                        <i
+                                            (click)="getCategorias(true)"
+                                            class="fas fa-sync"
+                                        ></i>
+                                    </a>
+                                </label>
+                                <select
+                                    [compareWith]="compareCategorias"
+                                    name="cat"
+                                    id="cat"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="ProductosForm.categoriaId"
+                                    required
+                                >
+                                    <option
+                                        [ngValue]="c"
+                                        *ngFor="let c of categorias$ | async"
+                                    >
+                                        {{ c.categoria }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label> Unidad de venta: </label>
+                                <select
+                                    [compareWith]="compareUnidad"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="ProductosForm.unidad"
+                                    [ngModelOptions]="{ standalone: true }"
+                                >
+                                    <option [value]="1" selected>Unidad</option>
+                                    <option [value]="100">Kg</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label
+                                ><b style="color: red">* </b>Pertenece a:
+                            </label>
+                            <select
+                                [compareWith]="compareComercio"
+                                class="form-control form-control-sm"
+                                [(ngModel)]="ProductosForm.comercioId"
+                                (change)="changeIdComercio()"
+                                [ngModelOptions]="{ standalone: true }"
+                                required
+                            >
+                                <option
+                                    *ngFor="let c of comercios$ | async"
+                                    [ngValue]="c"
+                                >
+                                    {{ c.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- / COLUMNA 1 -->
+
+                    <!-- COLUMNA 2 -->
+                    <div class="col-md-6">
+                        <div class="form-group col-md-12">
+                            <label><b style="color: red">* </b>Stock: </label>
+                            <input
+                                type="number"
+                                class="form-control form-control-sm"
+                                [(ngModel)]="ProductosForm.stock_actual"
+                                [ngModelOptions]="{ standalone: true }"
+                                required
+                            />
+                        </div>
+                        <div class="form-group col-md-12 col-sm-6">
+                            <label> Marca: </label>
+                            <select
+                                [compareWith]="compareMarcas"
+                                name="mar"
+                                id="mar"
+                                class="form-control form-control-sm"
+                                [(ngModel)]="ProductosForm.marcaId"
+                            >
+                                <option
+                                    *ngFor="let m of marcas$ | async"
+                                    [ngValue]="m"
+                                >
+                                    {{ m.marca }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label><b style="color: red">* </b>Detalle: </label>
+                            <angular-editor
+                                [config]="editorConfig"
+                                [placeholder]="'Ingrese el texto aquí...'"
+                                [(ngModel)]="ProductosForm.descripcion"
+                                [ngModelOptions]="{ standalone: true }"
+                                required
+                            >
+                            </angular-editor>
+                        </div>
+
+                        <!-- Esto lo habilitaria el ADMIN  -->
+                        <div
+                            *ngIf="this.idPrivilegio == 1"
+                            class="col-md-12 my-1"
+                        >
+                            <div class="form-check">
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="des"
+                                    [(ngModel)]="ProductosForm.destacado"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    required
+                                />
+                                <label class="form-check-label" for="des"
+                                    >Destacado página
+                                </label>
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="this.idPrivilegio == 1"
+                            class="col-md-12 my-1"
+                        >
+                            <div class="form-check">
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="prom"
+                                    [(ngModel)]="ProductosForm.promocion"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    required
+                                />
+                                <label class="form-check-label" for="prom"
+                                    >Promoción página
+                                </label>
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="this.idPrivilegio == 1"
+                            class="col-md-12 my-1"
+                        >
+                            <div class="form-check">
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="inicio"
+                                    [(ngModel)]="ProductosForm.inicio"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    required
+                                />
+                                <label class="form-check-label" for="inicio"
+                                    >Inicio
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 my-1">
+                            <div class="form-check">
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="descom"
+                                    [(ngModel)]="
+                                        ProductosForm.destacado_comercio
+                                    "
+                                    [ngModelOptions]="{ standalone: true }"
+                                    required
+                                />
+                                <label class="form-check-label" for="descom"
+                                    >Destacado
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 my-1">
+                            <div class="form-check">
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="promcom"
+                                    [(ngModel)]="
+                                        ProductosForm.promocion_comercio
+                                    "
+                                    [ngModelOptions]="{ standalone: true }"
+                                    required
+                                />
+                                <label class="form-check-label" for="promcom"
+                                    >Promoción
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / COLUMNA 2 -->
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <!-- <label>Confirmar:</label> -->
+                        <button
+                            [disabled]="blockConfirm"
+                            type="submit"
+                            class="btn btn-sm btn-primary btn-block float-right"
+                        >
+                            <i class="far fa-save"></i>
+                            Guardar Producto
+                        </button>
+                        <small
+                            >Debés guardar primero tu producto para poder cargar
+                            tus imágenes.</small
+                        >
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row" *ngIf="ProductosForm.id != null">
+                    <div
+                        *ngIf="
+                            progreso != '100%' &&
+                            progreso != '0%' &&
+                            progreso != ''
+                        "
+                        class="col-md-12"
+                    >
+                        <div class="text-center">
+                            <h3>Espere, subiendo foto. {{ progreso }}</h3>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!blockCargaImgs" class="col-md-4">
+                        <input
+                            type="file"
+                            style="display: none"
+                            (change)="fileChangeEvent($event)"
+                            #fileInput
+                        />
+                        <a
+                            id="foto"
+                            class="btn btn-block btn-sm btn-info"
+                            (click)="fileInput.click()"
+                        >
+                            <i class="fas fa-plus"></i> Seleccionar imagen
+                        </a>
+                        <!-- <input type="file" class="btn btn-sm btn-info" (change)="fileChangeEvent($event)" /> -->
+                        <image-cropper
+                            [imageChangedEvent]="imageChangedEvent"
+                            [maintainAspectRatio]="false"
+                            [aspectRatio]="1 / 1"
+                            [resizeToWidth]="1024"
+                            [resizeToHeight]="1024"
+                            [imageQuality]="70"
+                            format="jpeg"
+                            (imageCropped)="imageCropped($event)"
+                            (imageLoaded)="imageLoaded()"
+                            (cropperReady)="cropperReady()"
+                            (loadImageFailed)="loadImageFailed()"
+                        ></image-cropper>
+                    </div>
+
+                    <div *ngIf="imageChangedEvent !== ''" class="col-md-8">
+                        <a
+                            class="btn btn-sm btn-info mb-2"
+                            (click)="convertImg()"
+                            style="color: white"
+                        >
+                            <i class="fas fa-upload"></i>
+                            Subir imagen
+                        </a>
+                        <br />
+                        <img width="60%" height="60%" [src]="croppedImage" />
+                    </div>
+                </div>
+
+                <div *ngIf="this.ProductosForm.imagenes != null">
+                    <div
+                        class="row"
+                        *ngIf="
+                            ProductosForm.id != null &&
+                            ProductosForm.imagenes.length !== 0
+                        "
+                    >
+                        <div class="col-md-12">
+                            <h5 class="text-center">Imágenes cargadas:</h5>
+                        </div>
+                        <br />
+                        <!-- <label for="imgs">Imágenes cargadas:</label> -->
+                        <div
+                            id="imgs"
+                            *ngFor="let img of ProductosForm.imagenes"
+                            class="col-md-3"
+                        >
+                            <div class="text-center">
+                                <!-- <img src="assets/images/logo.jpeg" width="200" height="200" alt=""> -->
+                                <img
+                                    [src]="img.url"
+                                    width="200"
+                                    height="200"
+                                    alt=""
+                                />
+
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-danger m-2"
+                                    (click)="deleteImg(img)"
+                                >
+                                    Eliminar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />

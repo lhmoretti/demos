@@ -1,0 +1,205 @@
+<ion-header>
+  <ion-toolbar *ngIf="prestamo$ | async as p">
+    <ion-buttons slot="start">
+      <ion-icon name="arrow-back-outline" (click)="regresar()"></ion-icon>
+    </ion-buttons>
+    <ion-title> Detalles del préstamo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="prestamo$ | async as p">
+  <ion-row>
+    <ion-col size="12">
+      <ion-card>
+        <h2>{{ p.clienteId.nombre }} {{ p.clienteId.apellido }}</h2>
+        <ion-item>
+          <ion-label>
+            Monto
+            <br />
+            <p class="price">
+              {{ p.monto | currency : 'ARS' : 'symbol': '1.0-0' }}
+            </p>
+          </ion-label>
+          <ion-label>
+            Saldo
+            <br />
+            <p class="price">
+              {{ p.saldo | currency : 'ARS' : 'symbol': '1.0-0' }}
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-col>
+
+    <ion-col size="12">
+      <ion-card class="ion-align-self-center">
+        <ion-item>
+          <ion-label>
+            Cuotas
+            <br />
+            <p class="price">{{ p.cantidad_cuotas }}</p>
+          </ion-label>
+          <ion-label>
+            Pagadas
+            <br />
+            <p class="price">{{ p.cuotas_pagadas }}</p>
+          </ion-label>
+          <ion-label>
+            Tipo
+            <br />
+            <p class="price">{{ p.tipo_pago }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Tasa
+            <br />
+            <p class="price">%{{ p.tasa_interes }}</p>
+          </ion-label>
+          <ion-label>
+            Intereses
+            <br />
+            <p class="price">
+              {{ p.intereses | currency : 'ARS' : 'symbol': '1.0-0' }}
+            </p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Realizado
+            <br />
+            <p class="price">{{ p.fecha_hora | date: 'yyyy-MM-dd'}}</p>
+          </ion-label>
+          <ion-label>
+            Vence
+            <br />
+            <p class="price">{{ p.vencimiento | date: 'yyyy-MM-dd' }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item *ngIf="p.estado === 'Vigente'" color="warning">
+          Estado: {{ p.estado }}
+        </ion-item>
+        <ion-item *ngIf="p.estado === 'Saldado'" color="success">
+          Estado: {{ p.estado }}
+        </ion-item>
+        <ion-item *ngIf="p.estado === 'Deuda'" color="tertiary">
+          Estado: {{ p.estado }}
+        </ion-item>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-card>
+    <h2 *ngIf="p.pagos.length == 0">No hay pagos aún.</h2>
+    <h2 *ngIf="p.pagos.length != 0">Pagos</h2>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-item
+            [ngClass]="{'danger':pa.interes, 'tertiary':!pa.interes}"
+            outline="true"
+            *ngFor="let pa of p.pagos"
+          >
+            <ion-label>
+              # {{ pa.nro_cuota }} - {{ pa.monto | currency : 'ARS' : 'symbol':
+              '1.0-0' }} - {{ pa.fecha_hora | date: 'yyyy-MM-dd' }}
+            </ion-label>
+            <ion-icon
+              class="ion-padding-start"
+              name="trash-outline"
+              (click)="deletePago(pa)"
+            ></ion-icon>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-card>
+    <h2>Agregar pago</h2>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Monto</ion-label>
+          <ion-input
+            type="number"
+            [(ngModel)]="montoCuota"
+            (ionChange)="calcGananciaCuota('no')"
+            (keyup)="habilitarAplicaInteres = false;"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Ganancia</ion-label>
+          <ion-input type="number" [(ngModel)]="ganancia"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Fecha</ion-label>
+          <ion-datetime
+            min="2016"
+            max="2050-12-31"
+            displayFormat="YYYY-MM-DD"
+            [(ngModel)]="fcHoy"
+            placeholder="Seleccionar fecha"
+          >
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label>
+            Cuotas de
+            <br />
+            <p class="price">
+              {{ p.valor_cuota | currency : 'ARS' : 'symbol': '1.0-0' }}
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="8">
+        <ion-list>
+          <ion-item>
+            <ion-toggle
+              [(ngModel)]="habilitarAplicaInteres"
+              (ionChange)="habilitarAplicaInteresFn()"
+            ></ion-toggle>
+            <ion-label>Aplicar interés</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col size="4">
+        <ion-item>
+          <ion-label position="floating">Interés</ion-label>
+          <ion-select
+            [disabled]="!habilitarAplicaInteres"
+            [(ngModel)]="interesAplicado"
+            type="number"
+            interface="popover"
+            (ionChange)="habilitarAplicaInteres = false; montoCuota = 0"
+          >
+            <!-- calcInteresCuota()" -->
+            <ion-select-option
+              type="number"
+              *ngFor="let t of arrTasaInt"
+              [value]="t"
+            >
+              {{ t }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-col size="12">
+      <ion-button (click)="savePago()" expand="block" fill="outline"
+        >Confirmar</ion-button
+      >
+    </ion-col>
+  </ion-card>
+</ion-content>

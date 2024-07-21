@@ -1,0 +1,173 @@
+/* Color para el topbar  */
+.top-bar {
+    overflow: hidden;
+    background-color: #2f2f2f;
+    padding: 5px 5px;
+}
+
+/* Estilo para el a de 'ATENCION AL COMERCIO' */
+.a-contact {
+    color: white;
+    font-size: 14px;
+}
+
+.nav-link.inicia-sesion {
+    padding: 0rem 0rem;
+}
+
+.contenido-sesion {
+    border-right: 1px solid #fff;
+    border-left: 1px solid #fff;
+}
+
+.link-inicia-sesion,
+.link-registra {
+    display: block;
+    text-align: left;
+}
+
+.links-sesion {
+    width: 100px;
+    float: left;
+}
+
+.icono-inicia-sesion {
+    width: 50px;
+    height: 30px;
+    float: left;
+    text-align: center;
+    line-height: 37px;
+}
+
+.a-contact:hover {
+    cursor: pointer;
+    color: lightgray;
+}
+
+/* Estilos para la imagen */
+.img-logo {
+    width: 260px;
+    height: auto;
+    cursor: pointer;
+    border: 0px;
+}
+
+/* Color de fondo naranja para el navbar */
+.main-header {
+    background-color: #e7600f !important;
+}
+
+.txt-tachado {
+    font-size: 13px;
+    text-decoration: line-through;
+}
+
+.txt-precio-oferta {
+    font-size: 16px;
+    color: #e7600f;
+}
+
+/* Estilos para el input search */
+.input-search {
+    width: 430px;
+    border-radius: 0;
+    height: 40px;
+}
+
+.input-search:focus {
+    border-color: orange;
+    box-shadow: 0 0 0 0.1rem orange;
+}
+
+/* Color blanco para las opciones del navbar */
+.a-opts {
+    color: white !important;
+}
+
+.cart {
+    color: #ffffff;
+    margin-top: 11px;
+    margin-left: 20px;
+}
+
+.badge-position {
+    position: absolute;
+    border-radius: 10px;
+    font-weight: normal;
+    margin-left: -5px;
+}
+
+.container-cart:hover .content-cart {
+    display: block;
+}
+
+.content-cart {
+    background-color: white;
+    display: none;
+    width: 420px;
+    z-index: 2;
+    /* margin-top: 15px; */
+    height: auto;
+    max-height: 500px;
+    position: absolute;
+    margin-left: -230px;
+    /* margin-right: -px; */
+}
+
+.cart:hover .content-cart {
+    display: block;
+}
+
+.content-lineas {
+    overflow-y: scroll;
+    max-height: 400px;
+}
+
+.cart:hover {
+    cursor: pointer;
+    color: lightgray;
+}
+
+.img-cart {
+    float: left;
+    height: 50px;
+    width: auto;
+}
+
+.txt-cart-title {
+    margin-bottom: -3px;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.list-group {
+    margin: 0;
+}
+
+.cont-busqueda {
+    display: none;
+    /* margin-top: 10px;
+    z-index: 99999999;
+    background-color: #fff;
+    position: absolute;
+    height: 400px;
+    width: 430px; */
+}
+
+.cont-busqueda-show {
+    display: block;
+    margin-top: 10px;
+    z-index: 99999999;
+    background-color: #fff;
+    position: absolute;
+    height: 100%;
+    max-height: 300px;
+    width: 430px;
+}
+
+.li-prod:hover {
+    background-color: rgb(204, 204, 204);
+    cursor: pointer;
+}

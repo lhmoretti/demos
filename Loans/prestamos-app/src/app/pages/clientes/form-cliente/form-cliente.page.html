@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon name="arrow-back-outline" (click)="regresar()"></ion-icon>
+    </ion-buttons>
+    <ion-title> Formulario de clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="cliente$ | async as c" class="ion-padding-top">
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <ion-icon color="primary" class="icon-size" name="contact"></ion-icon>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input required [(ngModel)]="c.nombre"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Apellido</ion-label>
+          <ion-input required [(ngModel)]="c.apellido"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <!-- <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input required [(ngModel)]="c.email"></ion-input>
+        </ion-item>
+      </ion-col> -->
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Teléfono</ion-label>
+          <ion-input required [(ngModel)]="c.telefono"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Domicilio</ion-label>
+          <ion-input required [(ngModel)]="c.domicilio"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">Localidad</ion-label>
+          <ion-select interface="popover" [(ngModel)]="c.localidad">
+            <ion-select-option value="Avellaneda">Avellaneda</ion-select-option>
+            <ion-select-option value="Reconquista"
+              >Reconquista</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-button (click)="send(c)" expand="block" fill="outline"
+          >Confirmar</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

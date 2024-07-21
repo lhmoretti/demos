@@ -1,0 +1,31 @@
+<div class="mb-5">
+    <img
+        class="img-banner"
+        [src]="Comercio?.banner ? Comercio.banner : 'assets/imgs/2000x400.png'"
+        alt=""
+    />
+    <img
+        class="img-logo"
+        [src]="Comercio?.avatar ? Comercio.avatar : 'assets/imgs/150x150.png'"
+        alt=""
+    />
+    <div class="container text-center mb-5">
+        <h2>{{ Comercio?.nombre }}</h2>
+        <p class="text-muted">{{ Comercio?.descripcion }}</p>
+    </div>
+</div>
+
+<div *ngIf="arrDestacadosComercio.length > 0" class="container">
+    <h3>Destacados</h3>
+    <app-card-grid [arrProductos]="arrDestacadosComercio"></app-card-grid>
+</div>
+
+<div *ngIf="arrProductosComercio.length > 0" class="container">
+    <h3>Inicio</h3>
+    <app-card-grid [arrProductos]="arrProductosComercio"></app-card-grid>
+</div>
+
+<div *ngIf="arrPromocionComercio.length > 0" class="container">
+    <h3>En promoción</h3>
+    <app-card-grid [arrProductos]="arrPromocionComercio"></app-card-grid>
+</div>

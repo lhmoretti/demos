@@ -1,0 +1,86 @@
+<!-- Facebook Pixel Code -->
+<script>
+    fbq('track', 'PageView');
+    fbq('track', 'InitiateCheckout');
+</script>
+
+<!-- End Facebook Pixel Code -->
+
+<div class="container mt-5">
+    <h2 class="txt-orange mb-3">
+        Tus pedidos fueron enviados y están siendo procesados
+    </h2>
+    <div class="alert alert-info" role="alert">
+        Vas a recibir un e-mail con el detalle de tu pedido.
+    </div>
+
+    <div class="card mt-4" *ngFor="let pedido of arrPedidos">
+        <div class="card-body p-3">
+            <h3 class="txt-orange mb-3">
+                Compraste a {{ pedido.comercioId.nombre }}
+            </h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let linea of pedido.pedido_lineas; index as i">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>{{ linea.nombre }}</td>
+                        <td *ngIf="linea.unidad > 1">
+                            {{ linea.cantidad }} grs.
+                        </td>
+                        <td *ngIf="linea.unidad == 1">x{{ linea.cantidad }}</td>
+                        <td>
+                            {{
+                                linea.precio_venta
+                                    | currency : 'ARS' : 'symbol' : '3.0'
+                            }}
+                        </td>
+                        <td *ngIf="linea.unidad > 1">
+                            {{
+                                linea.precio_venta * (linea.cantidad / 1000)
+                                    | currency : 'ARS' : 'symbol' : '3.0-0'
+                            }}
+                        </td>
+                        <td *ngIf="linea.unidad == 1">
+                            {{
+                                linea.precio_venta * linea.cantidad
+                                    | currency : 'ARS' : 'symbol' : '3.0-0'
+                            }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer">
+            <div class="d-block">
+                <p class="d-inline">Forma de entrega:</p>
+                <p class="txt-orange d-inline">
+                    <b> {{ pedido.modo_entrega }}</b>
+                </p>
+            </div>
+
+            <div class="d-block">
+                <p class="d-inline">Forma de pago:</p>
+                <p class="txt-orange d-inline">
+                    <b> {{ pedido.modo_pago }}</b>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <button [routerLink]="['']" type="button" class="btn btn-primary">
+            Seguir comprando
+        </button>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #e7600f;
+}
+
+.bg-footer {
+    background-color: #2f2f2f;
+}
+
+.bg-logo {
+    background-color: #e7600f;
+}
+
+.footer {
+    position: relative;
+    left: 0;
+    margin-top: 50px;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-logos span {
+    color: #fff;
+}
+
+.cont-logo {
+    max-width: 300px;
+    margin: auto;
+}
+
+.img-logo {
+    width: 100%;
+    margin: auto;
+}
+
+.img-logo-2 {
+    width: 70%;
+    margin: auto;
+}
+
+.li-informacion {
+    list-style: none;
+}
+
+.li-informacion:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

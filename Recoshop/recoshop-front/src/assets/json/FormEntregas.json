@@ -1,0 +1,19 @@
+{
+    "FormasEntrega": [
+        {
+            "descrip": "Delivery",
+            "selected": true,
+            "active": true
+        },
+        {
+            "descrip": "Acuerdo con el vendedor",
+            "selected": true,
+            "active": true
+        },
+        {
+            "descrip": "Retiro en sucursal",
+            "selected": true,
+            "active": true
+        }
+    ]
+}

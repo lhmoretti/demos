@@ -1,0 +1,55 @@
+import { Usuarios } from '../../Entities/Usuarios';
+
+export const usuarios: Usuarios[] = [
+    <Usuarios>{
+        id: 1,
+        username: 'superadmin',
+        email: 'superadmin@domain.com',
+        // superAdmin1234**
+        password: 'superAdmin1234**',
+        telefono: '23423442',
+        nombre: 'SuperAdmin',
+        apellido: 'Reco',
+        activo: true,
+        role: 1,
+        provincia: 'Santa Fe',
+        localidad: 'Avellaneda',
+        avatar: 'url/avatar.png',
+        domicilio: 'Calle 1123',
+        recpass: 'string',
+    },
+    <Usuarios>{
+        id: 2,
+        username: 'comerciante',
+        email: 'comerciante@domain.com',
+        // superAdmin1234**
+        password: 'superAdmin1234**',
+        telefono: '23423442',
+        nombre: 'Comerciante',
+        apellido: 'Reco',
+        activo: true,
+        role: 2,
+        provincia: 'Santa Fe',
+        localidad: 'Avellaneda',
+        avatar: 'url/avatar.png',
+        domicilio: 'Calle 1123',
+        recpass: 'string',
+    },
+    <Usuarios>{
+        id: 3,
+        username: 'cliente',
+        email: 'cliente@domain.com',
+        // superAdmin1234**
+        password: 'superAdmin1234**',
+        telefono: '23423442',
+        nombre: 'Cliente',
+        apellido: 'Reco',
+        activo: true,
+        role: 3,
+        provincia: 'Santa Fe',
+        localidad: 'Avellaneda',
+        avatar: 'url/avatar.png',
+        domicilio: 'Calle 1123',
+        recpass: 'string',
+    },
+];

@@ -1,0 +1,91 @@
+<app-slider
+    [optSlider]="sliderBanners"
+    [arrImgs]="arrBannersPrincipales"
+></app-slider>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 text-center">
+            <div class="card p-3">
+                <i style="color: #adb5bd" class="fas fa-store fa-3x m-2"></i>
+                <p>
+                    Tu sucursal de ventas digital en 10 minutos,
+                    <b>¡abierta las 24hs!</b>
+                </p>
+                <a href="#/login" class="btn btn-success bg-blue"
+                    >REGISTRARME Y VENDER</a
+                >
+            </div>
+        </div>
+
+        <div class="col-lg-4 text-center">
+            <div class="card p-3">
+                <i style="color: #adb5bd" class="fas fa-rocket fa-3x m-2"></i>
+                <p>
+                    Contamos con 3 planes para potenciar tus ventas,
+                    <b>¡nos encargamos de la publicidad!</b>
+                </p>
+                <a
+                    [routerLink]="['/planes-de-pagos']"
+                    routerLinkActive="router-link-active"
+                    class="btn bg-blue"
+                    >VER PLANES</a
+                >
+            </div>
+        </div>
+
+        <div class="col-lg-4 text-center">
+            <div class="card p-3">
+                <i style="color: #adb5bd" class="fas fa-headset fa-3x m-2"></i>
+                <p>
+                    ¿Tenés dudas? envianos un mensaje y coordinamos un llamado
+                </p>
+                <a
+                    href="https://api.whatsapp.com/send?phone=123123123123&text=Hola%2C%20te%20escribo%20desde%20la%20tienda%20Recoshop%2C%20quiero%20hacerte%20una%20consulta"
+                    class="btn bg-blue"
+                    >ENVIAR MENSAJE</a
+                >
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-slider-categorias [arrCategorias]="arrCategoria"></app-slider-categorias>
+
+<app-slider-comercios
+    [optSwiperComercios]="sliderComercios"
+    [arrComercios]="arrComercios"
+></app-slider-comercios>
+
+<app-card-swiper
+    [Titulo]="tituloDest"
+    [optSwiper]="sliderProds"
+    [arrArts]="arrDestacados"
+></app-card-swiper>
+
+<div class="container">
+    <div class="col d-none d-lg-block d-xl-block">
+        <img
+            width="100%"
+            src="assets/imgs/banner-comercios.png"
+            [routerLink]="['/comercios']"
+            style="cursor: pointer"
+            alt=""
+        />
+    </div>
+    <div class="col d-none d-block d-sm-none d-md-block d-lg-none">
+        <img
+            width="100%"
+            src="assets/imgs/comercios-adheridos-mobile.png"
+            [routerLink]="['/comercios']"
+            style="cursor: pointer"
+            alt=""
+        />
+    </div>
+</div>
+
+<app-card-swiper
+    [Titulo]="tituloInicio"
+    [optSwiper]="sliderProds"
+    [arrArts]="arrInicio"
+></app-card-swiper>

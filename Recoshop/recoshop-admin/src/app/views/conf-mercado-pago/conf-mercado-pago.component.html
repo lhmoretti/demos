@@ -1,0 +1,57 @@
+<div *ngIf="!ComercioSelect && showPaso1 == false">
+    <div class="row text-center">
+        <div class="col-md-12 mb-2">
+            <h3 class="text-center">Mercado Pago</h3>
+        </div>
+        <div class="col-md-12 mb-2">
+            <span>Seleccioná el comercio que queres adherir. </span>
+            <br />
+            <small
+                >Si alguno de tus comerios no aparece, es porque ya está
+                adherido.</small
+            >
+        </div>
+
+        <div class="col-md-4 mb-2"></div>
+        <div class="col-md-4 mb-2">
+            <select
+                name=""
+                class="form-control"
+                (change)="changeEstado()"
+                [(ngModel)]="ComercioSelect"
+                id=""
+            >
+                <option value="null" disabled selected>
+                    Seleccionar comercio
+                </option>
+                <option
+                    [ngValue]="comercio"
+                    *ngFor="let comercio of arrComercios"
+                >
+                    {{ comercio.nombre }}
+                </option>
+            </select>
+        </div>
+        <div class="col-md-4 mb-2"></div>
+    </div>
+</div>
+
+<!-- *ngIf="showPaso1" -->
+<div *ngIf="showPaso1" class="text-center" id="paso1">
+    <h3 class="txt-orange">PASO 1</h3>
+    <p>
+        Clickeando el botón <b>"Generar link para adherirme"</b> se abrirá una
+        pantalla como la que se muestra debajo, y das en <b> Permitir</b>.
+    </p>
+
+    <button class="btn mt-2 mb-2 btn-primary" (click)="obtenerLink()">
+        Generar link para adherirme
+    </button>
+    <br />
+    <img
+        class="mt-2"
+        style="max-height: 400px; max-width: 100%"
+        src="assets/images/Paso 1.PNG"
+        alt=""
+    />
+</div>

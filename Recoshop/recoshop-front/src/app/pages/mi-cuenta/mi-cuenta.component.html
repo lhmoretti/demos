@@ -1,0 +1,142 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="mt-5 mr-5">
+                <li class="li-options" (click)="show('MC')">
+                    Mis datos
+                    <i class="fas float-right mt-1 fa-chevron-right"></i>
+                </li>
+                <li class="li-options mt-2" (click)="show('MP')">
+                    Mis pedidos
+                    <i class="fas float-right mt-1 fa-chevron-right"></i>
+                </li>
+                <li
+                    class="li-options mt-2"
+                    (click)="show('RA')"
+                    *ngIf="Usuario.role == 2"
+                >
+                    Vender <i class="fas float-right mt-1 fa-chevron-right"></i>
+                </li>
+                <li class="li-options mt-2" (click)="show('RC')">
+                    Registrar comercio
+                    <i class="fas float-right mt-1 fa-chevron-right"></i>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8" *ngIf="showCuenta">
+            <div class="content-inputs mb-3">
+                <h3 class="mt-4">Mis datos</h3>
+
+                <h5 class="mt-5">Datos de la cuenta</h5>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="inputEmail" class="txt-orange"
+                                >Email</label
+                            >
+                            <input
+                                id="inputEmail"
+                                type="text"
+                                [(ngModel)]="Usuario.email"
+                                placeholder="Correo electronico"
+                                class="input form-control"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="inputUsuario" class="txt-orange"
+                                >Usuario</label
+                            >
+                            <input
+                                type="text"
+                                id="inputUsuario"
+                                [(ngModel)]="Usuario.username"
+                                placeholder="Usuario"
+                                class="input form-control"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="mt-5">Datos personales</h5>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="inputNombre" class="txt-orange"
+                                >Nombre</label
+                            >
+                            <input
+                                type="text"
+                                id="inputNombre"
+                                [(ngModel)]="Usuario.nombre"
+                                placeholder="Nombre"
+                                class="input form-control"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="inputApellido" class="txt-orange"
+                                >Apellido</label
+                            >
+                            <input
+                                type="text"
+                                id="inputApellido"
+                                [(ngModel)]="Usuario.apellido"
+                                placeholder="Apellido"
+                                class="input form-control"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="inputDomicilio" class="txt-orange"
+                                >Domicilio</label
+                            >
+                            <input
+                                type="text"
+                                id="inputDomicilio"
+                                [(ngModel)]="Usuario.domicilio"
+                                placeholder="Domicilio"
+                                class="input form-control"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="inputTelefono" class="txt-orange"
+                                >Telefono</label
+                            >
+                            <input
+                                type="text"
+                                id="inputTelefono"
+                                [(ngModel)]="Usuario.telefono"
+                                placeholder="Telefono"
+                                class="input form-control"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 container">
+                        <button
+                            class="btn btn-danger mt-2 rounded-0"
+                            (click)="cerrarSesion()"
+                        >
+                            CERRAR SESIÓN
+                        </button>
+                        <button
+                            class="btn bg-orange mt-2 float-right rounded-0"
+                            (click)="guardarUsuario()"
+                        >
+                            GUARDAR DATOS
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8" *ngIf="showPedidos">
+            <app-mis-pedidos></app-mis-pedidos>
+        </div>
+    </div>
+</div>

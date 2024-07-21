@@ -1,0 +1,25 @@
+<div class="container text-center mt-4 carrusel-comercios mb-4">
+    <h3 class="txt-orange">Comercios Destacados</h3>
+    <owl-carousel-o [options]="optSwiperComercios">
+        <ng-template carouselSlide *ngFor="let comercio of arrComercios">
+            <div
+                style="cursor: pointer"
+                [routerLink]="['/comercio', comercio.id, comercio.nombre]"
+            >
+                <div class="imagen-comercio">
+                    <img
+                        [src]="
+                            comercio.avatar
+                                ? comercio.avatar
+                                : 'assets/imgs/150x150.png'
+                        "
+                        alt=""
+                    />
+                </div>
+                <p class="text-uppercase font-weight-bold txt-orange">
+                    {{ comercio.nombre }}
+                </p>
+            </div>
+        </ng-template>
+    </owl-carousel-o>
+</div>

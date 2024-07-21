@@ -1,0 +1,181 @@
+<div class="row text-center">
+    <div class="col-md-12 mb-2">
+        <h3 class="text-center">Usuarios</h3>
+    </div>
+</div>
+
+<div class="mb-5">
+    <ul *ngIf="!showForm" class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a
+                class="nav-link active"
+                id="clientes-tab"
+                data-toggle="tab"
+                href="#clientes"
+                role="tab"
+                aria-controls="clientes"
+                aria-selected="true"
+                (click)="role = 3; reset()"
+                >Clientes</a
+            >
+        </li>
+        <li class="nav-item">
+            <a
+                class="nav-link"
+                id="comerciantes-tab"
+                data-toggle="tab"
+                href="#comerciantes"
+                role="tab"
+                aria-controls="comerciantes"
+                aria-selected="false"
+                (click)="role = 2; reset()"
+                >Comerciantes</a
+            >
+        </li>
+        <li class="nav-item">
+            <a
+                class="nav-link"
+                id="admins-tab"
+                data-toggle="tab"
+                href="#admins"
+                role="tab"
+                aria-controls="admins"
+                aria-selected="false"
+                (click)="role = 1; reset()"
+                >Administradores</a
+            >
+        </li>
+        <li class="nav-item">
+            <a
+                class="nav-link"
+                id="correos-tab"
+                data-toggle="tab"
+                href="#correos"
+                role="tab"
+                aria-controls="correos"
+                aria-selected="false"
+                (click)="getCorreos()"
+                >Lista de correos</a
+            >
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div
+            *ngIf="showListEmails"
+            class="table-responsive text-nowrap text-center"
+        >
+            <table class="table table-sm table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th>Comercio</th>
+                        <th>Email Comercio</th>
+                        <th>Emails Usuarios</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let correo of correos">
+                        <td>{{ correo.comercio }}</td>
+                        <td>{{ correo.email_comercio }}</td>
+                        <td *ngFor="let useremail of correo.email_usuarios">
+                            {{ useremail.email }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="!showForm && !showListEmails" class="row">
+            <div class="col-md-4 col-sm-3 mt-2">
+                <select
+                    #buscar
+                    name="buscar"
+                    [(ngModel)]="attr"
+                    class="form-control form-control-sm"
+                    (change)="reset()"
+                >
+                    <option value="S">Filtrar por..</option>
+                    <option value="username">Usuario</option>
+                    <option value="nombre">Nombre</option>
+                    <option value="apellido">Apellido</option>
+                    <option value="email">E-mail</option>
+                    <option value="telefono">Teléfono</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 col-sm-8 mt-2">
+                <div
+                    *ngIf="attr != 'S'"
+                    class="input-group input-group-sm flex-nowrap"
+                >
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="addon-wrapping">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <input
+                        (keyup)="getPaginatedByTxt()"
+                        [(ngModel)]="txt"
+                        class="form-control form-control-sm"
+                        placeholder="Búsqueda"
+                    />
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-12 mt-2">
+                <app-paginacion (changePage)="pageChanged($event)">
+                </app-paginacion>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div *ngIf="showForm" class="col-md-12 col-sm-12">
+            <button
+                class="btn btn-sm btn-primary float-right mt-2"
+                (click)="volver()"
+            >
+                Volver
+            </button>
+        </div>
+    </div>
+
+    <section>
+        <div *ngIf="!showForm && !showListEmails" class="row">
+            <div class="table-responsive text-nowrap text-center">
+                <table class="table table-sm table-borderless table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Email</th>
+                            <th scope="col">Nombre / Apellido</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of arrUsuarios">
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.nombre + ' ' + user.apellido }}</td>
+                            <td>{{ user.telefono }}</td>
+                            <td>
+                                <button
+                                    class="btn btn-primary btn-sm m-1"
+                                    (click)="passUser(user)"
+                                >
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button
+                                    class="btn btn-danger btn-sm m-1"
+                                    (click)="delete(user.id)"
+                                >
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <app-form-usuario></app-form-usuario>
+    </section>
+</div>

@@ -1,0 +1,10 @@
+.per-page nav p {
+    display: inline-block;
+    margin: 25px 10px;
+    font-weight: bold;
+    padding: 2px 0;
+}
+
+.per-page nav .pagination {
+    float: right;
+}

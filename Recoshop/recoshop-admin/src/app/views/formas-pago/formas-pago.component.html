@@ -1,0 +1,182 @@
+<div class="row text-center">
+    <div class="col-md-12 mb-2">
+        <h3 class="text-center">Formas de pago</h3>
+        <span
+            >Seleccioná las formas de pago que deseas ofrecer a tus compradores,
+            debés tener seleccionada al menos una.
+        </span>
+    </div>
+</div>
+
+<div class="mt-3">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group col-md-12 mt-3">
+                <label
+                    ><b style="color: red">* </b>Seleccionar comercio:
+                </label>
+                <select
+                    class="form-control form-control-sm"
+                    [(ngModel)]="idComercio"
+                    (change)="changeComercio()"
+                >
+                    <option
+                        *ngFor="let c of comercios$ | async"
+                        [ngValue]="c.id"
+                    >
+                        {{ c.nombre }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="comercio$ | async as com" class="row">
+        <div class="col-md-12">
+            <div class="col-md-6 my-1 mt-2">
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="av"
+                        [(ngModel)]="com.mp_acuerdo_vendedor"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="send(com)"
+                    />
+                    <label class="form-check-label" for="av"
+                        ><b> Acuerdo con vendedor </b></label
+                    >
+                </div>
+            </div>
+            <div class="col-md-6 my-1 mt-2">
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="qr"
+                        [(ngModel)]="com.mp_mercadopago_qr"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="send(com)"
+                    />
+                    <label class="label" for="qr"
+                        ><b> Código QR Mercado Pago</b>
+                    </label>
+                    <br />
+                    <input
+                        type="file"
+                        class="btn btn-sm btn-inf"
+                        placeholder="Adjuntar imagen código QR"
+                    />
+                </div>
+            </div>
+            <div class="col-md-6 my-1 mt-2">
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="tf"
+                        [(ngModel)]="com.mp_trans_banc"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="send(com)"
+                    />
+                    <label class="label" for="tf"
+                        ><b> Transferencia bancaria</b>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-6 my-1 mt-2">
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="ac"
+                        [(ngModel)]="com.mp_abono_contra"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="send(com)"
+                    />
+                    <label class="label" for="ac"
+                        ><b> Abono contrareembolso</b>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-6 my-1 mt-2">
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="pp"
+                        [(ngModel)]="com.mp_pago_posnet"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="send(com)"
+                    />
+                    <label class="label" for="pp"
+                        ><b> Pago con posnet</b>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-6 my-1 mt-2">
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="ps"
+                        [(ngModel)]="com.mp_pago_sucursal"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="send(com)"
+                    />
+                    <label class="label" for="ps"
+                        ><b> Pago en sucursal</b>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-6 my-1 mt-2">
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="mp"
+                        [(ngModel)]="com.mp_mercadopago"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="send(com)"
+                    />
+                    <label class="label" for="mp"><b> Mercado Pago</b> </label>
+                    <br />
+                    <!-- <input type="file" class="btn btn-sm btn-inf" placeholder="Adjuntar imagen código QR"> -->
+                </div>
+            </div>
+
+            <!--
+
+      <div class="col-md-6 my-1 mt-2">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="mp">
+          <label class="label" for="mp"><b> Mercado Pago </b></label>
+          <br>
+          <small>
+            Para comenzar a operar con Mercado Pago debés ingresar el Public Key y el Access Token de tu
+            billetera virtual. Los pagos realizados irán directamente a tu cuenta de Mercado Pago.
+            Recoshop funciona de puente entre tus ventas y tu billetera virtual.
+          </small>
+          <div class="form-group">
+            <label> Modo producción: </label>
+            <input type="text" class="form-control form-control-sm m-2" placeholder="Public key">
+            <input type="text" class="form-control form-control-sm m-2" placeholder="Access token">
+            <button class="btn btn-sm btn-outline-success float-right">Guadar credenciales </button>
+            <br>
+          </div>
+        </div>
+      </div> -->
+
+            <br />
+            <br />
+
+            <!-- <div class="col-md-12 col-sm-12 mt-2">
+        <button class="btn btn-sm btn-success float-right">Guadar todo </button>
+      </div> -->
+
+            <div class="col-md-6 mt-4 my-1">
+                ¿Tenés dudas? Escribínos y te ayudamos.
+            </div>
+        </div>
+    </div>
+</div>

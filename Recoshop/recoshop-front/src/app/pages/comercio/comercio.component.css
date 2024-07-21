@@ -1,0 +1,16 @@
+.img-banner {
+    height: auto;
+    max-height: 500px;
+    width: 100%;
+    z-index: 1;
+}
+.img-logo {
+    z-index: 2;
+    border: white;
+    border-width: 5px;
+    border-style: solid;
+    margin-top: -100px;
+    margin-left: 100px;
+    height: 150px;
+    width: 150px;
+}

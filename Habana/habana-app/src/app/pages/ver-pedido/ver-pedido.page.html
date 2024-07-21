@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button
+                defaultHref="/main/pedidos-todos"
+            ></ion-back-button>
+        </ion-buttons>
+        <ion-title>Detalles de pedido</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let prod of Pedido.productos">
+            <h1 slot="start">{{prod.codigo}}</h1>
+            <h1>{{prod.nombre}}</h1>
+
+            <h2 slot="end">
+                {{prod.precio | currency:'ARS': 'symbol' : '1.0-0' }} x
+                {{prod.cantidad}}
+            </h2>
+            <h2 slot="end">
+                Total: {{prod.precio * prod.cantidad | currency:'ARS': 'symbol'
+                : '1.0-0' }}
+            </h2>
+        </ion-item>
+    </ion-list>
+
+    <div class="ion-margin-top ion-margin-start">
+        <ion-label slot="end" *ngIf="Pedido.descripcion">
+            <h1>Descripción del pedido</h1>
+        </ion-label>
+
+        <ion-textarea
+            readonly
+            [(ngModel)]="Pedido.descripcion"
+            rows="6"
+            cols="20"
+        ></ion-textarea>
+    </div>
+
+    <ion-item>
+        <h2>
+            Moza/o: {{Pedido.usuario?.nombre | titlecase}}
+            {{Pedido.usuario.apellido | titlecase}}
+        </h2>
+
+        <h2 slot="end">
+            Total: {{ total | currency:'ARS': 'symbol' : '1.0-0' }}
+        </h2>
+    </ion-item>
+</ion-content>
+
+<ion-footer *ngIf="User.role === 'COCINERO'">
+    <ion-toolbar class="ion-no-border">
+        <ion-button
+            expand="block"
+            *ngIf="Pedido.estado == 'Pendiente'"
+            (click)="updatePedido()"
+        >
+            Pedido listo
+        </ion-button>
+        <ion-button
+            expand="block"
+            *ngIf="Pedido.estado == 'Listo'"
+            (click)="updatePedido()"
+        >
+            Pedido entregado
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>

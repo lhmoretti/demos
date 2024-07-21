@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg">
+    <div style="margin-right: 25px; cursor: pointer" (click)="setSide()">
+        <span class="closebtn">
+            <i class="fas fa-bars"></i>
+        </span>
+    </div>
+    <!-- <a *ngIf="usuario | async as user" class="navbar-brand"> 
+    {{ user.nombre }} 
+  </a> -->
+
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav" aria-controls="nav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-bars"></i>
+  </button> -->
+
+    <!-- <div class="collapse navbar-collapse" id="nav"> -->
+    <ul class="navbar-nav text-center">
+        <li class="ml-3">
+            <a *ngIf="usuario.role == 1" class="navbar-brand text-light">
+                Administrador: {{ usuario.nombre }}
+            </a>
+            <a *ngIf="usuario.role == 2" class="navbar-brand text-light">
+                Usuario: {{ usuario.nombre }}
+            </a>
+        </li>
+
+        <li class="salir">
+            <button class="btn btn-sm" (click)="auth.logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                Salir
+            </button>
+        </li>
+    </ul>
+
+    <!-- </div> -->
+</nav>

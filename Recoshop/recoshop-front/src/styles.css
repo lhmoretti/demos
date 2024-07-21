@@ -1,0 +1,128 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    font-family: 'Exo', sans-serif;
+    background: #eee;
+}
+
+ul li {
+    font-size: 14px;
+}
+
+.h4,
+h4 {
+    font-size: 1.2rem;
+}
+
+.h3,
+h3 {
+    font-size: 1.4rem;
+}
+
+dl,
+ol,
+ul {
+    margin-left: -14px;
+}
+
+.box-info-producto p,
+.box-lista-comercios p {
+    margin-bottom: 0.4rem;
+}
+
+input:focus,
+input.form-control:focus {
+    outline: none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.btn:active,
+.btn:focus,
+.btn:focus:active {
+    background-image: none;
+    outline: 0;
+    box-shadow: none;
+}
+
+img:focus {
+    outline: none !important;
+}
+
+.btn-focus:focus {
+    border-color: orange;
+    box-shadow: 0 0 0 0.1rem orange;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+.input-login {
+    border-radius: 0;
+}
+
+.bg-orange {
+    background-color: #e7600f !important;
+    color: #ffffff !important;
+}
+
+.bg-blue {
+    background-color: #6aabf1 !important;
+    color: #ffffff !important;
+}
+
+.txt-orange {
+    color: #e7600f;
+}
+
+.input-login:focus {
+    border-color: orange;
+    box-shadow: 0 0 0 0.1rem orange;
+}
+
+.input {
+    border-radius: 0;
+}
+
+.input:focus {
+    border-color: orange;
+    box-shadow: 0 0 0 0.1rem orange;
+}
+
+.precio {
+    font-size: 22px;
+    color: #e7600f;
+}
+
+.tachar {
+    font-size: 16px;
+    text-decoration: line-through;
+    color: darkgrey;
+}
+
+.alinear {
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+@media (min-width: 576px) {
+    .card-columns .card {
+        display: inline-block;
+        width: 100%;
+        height: 280px;
+    }
+}
+
+.btn-outline-primary {
+    color: #e7600f;
+    border-color: #e7600f;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #e7600f;
+    border-color: #e7600f;
+}

@@ -1,0 +1,20 @@
+<div class="container mb-4 mt-4">
+    <owl-carousel-o [options]="optSlider">
+        <ng-container *ngFor="let img of arrImgs">
+            <ng-template carouselSlide [id]="img.id">
+                <!-- <img *ngIf="img.url"  [src]="'https://your-domain.com.ar/banners/' + img.url" class="img" (click)="verRuta(img.route)" srcset=""> -->
+                <img
+                    [src]="
+                        img.url
+                            ? 'https://your-domain.com.ar/banners/' + img.url
+                            : 'assets/css/no-image.png'
+                    "
+                    class="img"
+                    (click)="verRuta(img.link)"
+                    alt=""
+                />
+                <!-- <img [src]="img.src" class="img" srcset=""> -->
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</div>

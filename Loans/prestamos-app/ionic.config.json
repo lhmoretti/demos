@@ -1,0 +1,8 @@
+{
+  "name": "prestamosapp",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

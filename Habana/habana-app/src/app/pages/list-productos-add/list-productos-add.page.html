@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/main/gen-pedido"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Productos para agregar</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let producto of arrProductos">
+            <ion-label>
+                <h2>
+                    {{producto.nombre}} - {{producto.precio | currency:'ARS':
+                    'symbol' : '1.0-0'}}
+                </h2>
+            </ion-label>
+
+            <ion-label slot="end"> </ion-label>
+
+            <div slot="end">
+                <p slot="end">
+                    <ion-button (click)="agregarProducto(producto)">
+                        <ion-icon
+                            slot="icon-only"
+                            name="add-circle-outline"
+                        ></ion-icon>
+                    </ion-button>
+                </p>
+                <p slot="end">
+                    <ion-button (click)="quitarProducto(producto)">
+                        <ion-icon
+                            slot="icon-only"
+                            name="remove-circle-outline"
+                        ></ion-icon>
+                    </ion-button>
+                </p>
+            </div>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-row>
+            <ion-col *ngFor="let pc of arrProdsCargados" size="4">
+                <ion-item>
+                    <ion-badge class="mr-5">{{ pc.cantidad }}</ion-badge>
+                    <ion-label class="text-20"> {{ pc.nombre }} </ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-footer>

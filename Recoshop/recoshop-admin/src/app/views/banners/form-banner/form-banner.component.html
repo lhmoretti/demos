@@ -1,0 +1,119 @@
+<div>
+    <h2>Form banner</h2>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <button (click)="volver()">Volver</button>
+        </div>
+    </div>
+    <div class="text-center mt-2">
+        <div *ngIf="banner">
+            <form>
+                <!-- *ngIf="banner.id != null" -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Título: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="banner.titulo"
+                            [ngModelOptions]="{ standalone: true }"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Descripción: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="banner.descrip"
+                            [ngModelOptions]="{ standalone: true }"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Link: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            [(ngModel)]="banner.link"
+                            [ngModelOptions]="{ standalone: true }"
+                        />
+                    </div>
+                </div>
+
+                <!-- Si el banner ya está cargado, no debe permitir cargar otro banner, solo actualizar
+             sus atributos titulo, descrip y activo -->
+                <div
+                    *ngIf="this.selectedFile == null && banner.id == null"
+                    class="row"
+                >
+                    <div class="col-md-6">
+                        <div class="form-group col-md-12">
+                            <input
+                                type="file"
+                                style="display: none"
+                                (change)="onFileSelected($event)"
+                                #fileInput
+                            />
+                            <button
+                                id="foto"
+                                class="btn btn-block btn-sm btn-info"
+                                (click)="fileInput.click()"
+                            >
+                                <i class="fas fa-plus"></i> Agregar nuevo banner
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <div
+                        class="text-center"
+                        *ngIf="
+                            progreso != '100%' &&
+                            progreso != '0%' &&
+                            progreso != ''
+                        "
+                    >
+                        <h3>Espere, subiendo banner. {{ progreso }}</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <!-- Si seleccionó un banner, pero dejó los campos título y descrip vacios aparece este div -->
+                        <div
+                            *ngIf="
+                                this.selectedFile !== null && banner.id == null
+                            "
+                        >
+                            <div class="col-md-6">
+                                {{ selectedFile.name }}
+                            </div>
+                            <div class="col-md-6">
+                                <button
+                                    type="submit"
+                                    (click)="onUpload()"
+                                    class="btn btn-sm btn-primary btn-block float-right"
+                                >
+                                    Confirmar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="banner.id != null" class="col-md-6 col-sm-6">
+                        <label>Actualizar:</label>
+                        <button
+                            type="submit"
+                            (click)="update()"
+                            class="btn btn-sm btn-primary btn-block float-right"
+                        >
+                            Actualizar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,173 @@
+<div class="row text-center">
+    <div class="col-md-12 mb-2">
+        <h3 class="text-center">Pedidos</h3>
+    </div>
+</div>
+
+<div class="mb-5">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a
+                class="nav-link active"
+                id="pendientes-tab"
+                data-toggle="tab"
+                href="#pendientes"
+                role="tab"
+                aria-controls="pendientes"
+                aria-selected="true"
+                (click)="changeEstadoPagina('P')"
+                >Pendientes</a
+            >
+        </li>
+        <li class="nav-item">
+            <a
+                class="nav-link"
+                id="despachados-tab"
+                data-toggle="tab"
+                href="#despachados"
+                role="tab"
+                aria-controls="despachados"
+                aria-selected="true"
+                (click)="changeEstadoPagina('D')"
+                >Desapachados</a
+            >
+        </li>
+        <li class="nav-item">
+            <a
+                class="nav-link"
+                id="cancelados-tab"
+                data-toggle="tab"
+                href="#cancelados"
+                role="tab"
+                aria-controls="cancelados"
+                aria-selected="true"
+                (click)="changeEstadoPagina('C')"
+                >Cancelados
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="row mt-2">
+            <div class="col-md-4 col-sm-12">
+                <!-- <h3>
+          {{ 
+            estado == 'P' && 'Pendientes' || 
+            estado == 'E' && 'Entregados' || 
+            estado == 'D' && 'Desapachados' || 
+            estado == 'C' && 'Cancelados' 
+          }}
+        </h3> -->
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div *ngIf="idPrivilegio === 2" class="form-group">
+                    <select
+                        class="form-control form-control-sm"
+                        (change)="changeIdComercio()"
+                        [(ngModel)]="idComercio"
+                        required
+                    >
+                        <option *ngFor="let c of arrComercios" [value]="c.id">
+                            {{ c.nombre }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <app-paginacion (changePage)="pageChanged($event)">
+                </app-paginacion>
+            </div>
+        </div>
+        <!-- <div class="col-md-12 col-sm-12"> -->
+    </div>
+
+    <section>
+        <div *ngIf="!showForm" class="row">
+            <div class="table-responsive text-nowrap text-center">
+                <table class="table table-sm table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Fecha / Hora</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Modo Entrega</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ped of arrPedidos">
+                            <td>{{ ped.id }}</td>
+                            <td>
+                                {{ ped.usuarioId.nombre }}
+                                {{ ped.usuarioId.apellido }}
+                            </td>
+                            <td>
+                                {{ ped.fecha_hora | date : 'dd-MM-yyyy hh:mm' }}
+                            </td>
+                            <td>
+                                {{ ped.total | currency : 'ARS' : 'symbol' }}
+                            </td>
+                            <td>{{ ped.modo_entrega }}</td>
+                            <td>
+                                <button
+                                    class="btn btn-info btn-sm m-1"
+                                    (click)="passArt(ped)"
+                                >
+                                    Ver pedido
+                                </button>
+                                <button
+                                    class="btn btn-success btn-sm m-1"
+                                    *ngIf="
+                                        ped.estado === 'C' || ped.estado === 'P'
+                                    "
+                                    (click)="changeEstado(ped, 'D')"
+                                >
+                                    Despachar
+                                </button>
+                                <button
+                                    class="btn btn-danger btn-sm m-1"
+                                    *ngIf="
+                                        ped.estado === 'D' || ped.estado === 'P'
+                                    "
+                                    (click)="changeEstado(ped, 'C')"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    class="btn btn-warning btn-sm m-1"
+                                    *ngIf="
+                                        ped.estado === 'D' || ped.estado === 'C'
+                                    "
+                                    (click)="changeEstado(ped, 'P')"
+                                >
+                                    Pendiente
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <!-- </div> -->
+
+    <!-- </div> -->
+</div>
+
+<button
+    id="verModal"
+    data-toggle="modal"
+    data-target="#verTicket"
+    hidden
+></button>
+
+<!-- MODAL -->
+<div class="modal" id="verTicket" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <app-modal-pedido></app-modal-pedido>
+        </div>
+    </div>
+</div>
+<!-- /MODAL -->

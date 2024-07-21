@@ -1,0 +1,299 @@
+<!-- Facebook Pixel Code -->
+<script>
+    fbq('track', 'PageView');
+    fbq('track', 'AddToCart');
+</script>
+
+<!-- End Facebook Pixel Code -->
+
+<div class="main-content">
+    <div class="container p-4">
+        <h1 class="txt-orange mb-5">Pedidos</h1>
+        <div
+            class="accordion"
+            id="accordionExample"
+            *ngFor="let pedido of arrPedidos; index as i"
+        >
+            <div class="card mt-3">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <a
+                            class="txt-title mb-3"
+                            data-toggle="collapse"
+                            href="#collapseOne{{ i }}"
+                            role="button"
+                            aria-expanded="false"
+                            aria-controls="collapseExample"
+                        >
+                            {{ pedido.comercioId.nombre }}
+                        </a>
+                    </h2>
+                </div>
+
+                <div
+                    id="collapseOne{{ i }}"
+                    class="collapse show"
+                    aria-labelledby="headingOne"
+                    data-parent="#accordionExample"
+                >
+                    <div class="card-body">
+                        <!-- Tabla de lineas -->
+                        <div class="table-responsive">
+                            <table class="table table-sm table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="
+                                            let linea of pedido.pedido_lineas;
+                                            index as i
+                                        "
+                                    >
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td width="40%">{{ linea.nombre }}</td>
+                                        <td>x {{ linea.cantidad }}</td>
+                                        <td>
+                                            {{
+                                                linea.precio_venta
+                                                    | currency
+                                                        : 'ARS'
+                                                        : 'symbol'
+                                                        : '3.0-0'
+                                            }}
+                                        </td>
+                                        <td *ngIf="linea.unidad == 1">
+                                            {{
+                                                linea.precio_venta *
+                                                    linea.cantidad
+                                                    | currency
+                                                        : 'ARS'
+                                                        : 'symbol'
+                                                        : '3.0-0'
+                                            }}
+                                        </td>
+                                        <td *ngIf="linea.unidad == 100">
+                                            {{
+                                                linea.precio_venta *
+                                                    (linea.cantidad / 1000)
+                                                    | currency
+                                                        : 'ARS'
+                                                        : 'symbol'
+                                                        : '3.0-0'
+                                            }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row container mt-5 mb-3">
+                            <div class="col-md-6 col-sm-12">
+                                <button
+                                    class="btn btn-sm btn-block ver-mas"
+                                    [routerLink]="['/inicio']"
+                                    routerLinkActive="router-link-active"
+                                >
+                                    Ver más productos
+                                </button>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="float-right mr-4">
+                                    <p>
+                                        Subtotal:
+                                        <span style="color: #005ed2">{{
+                                            pedido.total
+                                                | currency
+                                                    : 'ARS'
+                                                    : 'symbol'
+                                                    : '3.0-0'
+                                        }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fin tabla de lineas -->
+
+                        <!-- Formas de entrega -->
+                        <hr />
+                        <h4>
+                            <i class="fas fa-shipping-fast"></i> Seleccione un
+                            método de envío
+                        </h4>
+                        <br />
+                        <div class="row container">
+                            <div
+                                class="col-md-4 mb-2"
+                                *ngIf="pedido.comercioId.e_delivery"
+                            >
+                                <div
+                                    (click)="selectEnvio('D', 'Delivery')"
+                                    [ngClass]="{ select: optDelivery }"
+                                    class="card opt-envio text-center p-3"
+                                >
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>Delivery</span>
+                                </div>
+                            </div>
+                            <div
+                                class="col-md-4 mb-2"
+                                *ngIf="pedido.comercioId.e_acuerdo_vendedor"
+                            >
+                                <div
+                                    (click)="
+                                        selectEnvio(
+                                            'A',
+                                            'Acuerdo con el vendedor'
+                                        )
+                                    "
+                                    [ngClass]="{ select: optAcuVendedor }"
+                                    class="card opt-envio text-center p-3"
+                                >
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>Acuerdo con el vendedor</span>
+                                </div>
+                            </div>
+                            <div
+                                class="col-md-4 mb-2"
+                                *ngIf="pedido.comercioId.e_retiro_sucursal"
+                            >
+                                <div
+                                    (click)="
+                                        selectEnvio('R', 'Retiro sucursal')
+                                    "
+                                    [ngClass]="{ select: optRetSucursal }"
+                                    class="card opt-envio text-center p-3"
+                                >
+                                    <i class="fas fa-store"></i>
+                                    <span>Retiro Sucursal</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin formas de entrega -->
+
+                        <!-- Metodos de pago -->
+                        <hr />
+                        <h4>
+                            <i class="fas fa-cash-register"></i> Seleccione una
+                            forma de pago
+                        </h4>
+                        <br />
+                        <div class="row container">
+                            <div
+                                class="col-md-4 mb-2"
+                                *ngIf="pedido.comercioId.mp_acuerdo_vendedor"
+                            >
+                                <div
+                                    (click)="
+                                        selectPago(
+                                            'A',
+                                            'Acuerdo con el vendedor'
+                                        )
+                                    "
+                                    [ngClass]="{ select: optMpAcuVendedor }"
+                                    class="card opt-envio text-center p-3"
+                                >
+                                    <i class="fas fa-user-friends"></i>
+                                    <span>Acuerdo con el vendedor</span>
+                                </div>
+                            </div>
+                            <div
+                                class="col-md-4 mb-2"
+                                *ngIf="pedido.comercioId.mp_mercadopago"
+                            >
+                                <div
+                                    (click)="selectPago('MP', 'Mercado pago')"
+                                    [ngClass]="{ select: optMpMercadoPago }"
+                                    class="card opt-envio text-center p-3"
+                                >
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span>Mercado Pago</span>
+                                </div>
+                            </div>
+                            <div
+                                class="col-md-4 mb-2"
+                                *ngIf="pedido.comercioId.mp_mercadopago_qr"
+                            >
+                                <div
+                                    (click)="
+                                        selectPago('QR', 'QR Mercado pago')
+                                    "
+                                    [ngClass]="{ select: optMpCodigoQr }"
+                                    class="card opt-envio text-center p-3"
+                                >
+                                    <i class="fas fa-qrcode"></i>
+                                    <span> QR Mercado pago</span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="col-md-4 mb-2"
+                                *ngIf="pedido.comercioId.mp_trans_banc"
+                            >
+                                <div
+                                    (click)="
+                                        selectPago(
+                                            'TB',
+                                            'Transferencia bancaria'
+                                        )
+                                    "
+                                    [ngClass]="{ select: optMpTransBanc }"
+                                    class="card opt-envio text-center p-3"
+                                >
+                                    <i class="fas fa-university"></i>
+                                    <span>Transferencia Bancaria</span>
+                                </div>
+                            </div>
+                            <div
+                                class="col-md-4 mb-2"
+                                *ngIf="pedido.comercioId.mp_abono_contra"
+                            >
+                                <div
+                                    (click)="
+                                        selectPago(
+                                            'AC',
+                                            'Abono contrareembolso'
+                                        )
+                                    "
+                                    [ngClass]="{ select: optMpAbonoCont }"
+                                    class="card opt-envio text-center p-3"
+                                >
+                                    <i class="fas fa-people-carry"></i>
+                                    <span>Abono contrareembolso</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin metodos de pago -->
+
+                        <div class="row container mt-4">
+                            <div class="col-md-12">
+                                <img
+                                    *ngIf="loading"
+                                    class="float-right ml-3"
+                                    src="assets/imgs/loading.gif"
+                                    style="max-height: 100px; max-width: auto"
+                                    alt=""
+                                />
+                                <button
+                                    [disabled]="loading"
+                                    (click)="confirmarPedido(pedido)"
+                                    class="btn float-right mt-4 bg-orange"
+                                >
+                                    CONFIRMAR PEDIDO
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

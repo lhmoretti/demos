@@ -1,0 +1,39 @@
+.img-art {
+    opacity: 1;
+    display: block;
+    border-radius: 0px;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    margin: auto;
+    backface-visibility: hidden;
+}
+
+.contenedor-imagen {
+    opacity: 1;
+    display: block;
+    border-radius: 0px;
+    max-width: 300px;
+    max-height: 250px;
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+}
+
+.img-art:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.bg-footer {
+    background-color: #ffffff !important;
+}
+
+.text-vendedor {
+    font-size: 0.8rem;
+    color: #a2a2a2;
+}
+
+p.text-vendedor {
+    margin-bottom: 0px;
+}

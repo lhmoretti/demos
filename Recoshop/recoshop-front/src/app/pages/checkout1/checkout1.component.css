@@ -1,0 +1,59 @@
+.input-cant {
+    display: inline;
+}
+
+.input-cant-size {
+    width: 70px;
+    border-radius: 0;
+    border: none;
+    height: 35px;
+    text-align: center;
+    margin: 5px 5px;
+}
+
+.input-cant-size:focus {
+    border-color: orange;
+    box-shadow: 0 0 0 0.1rem orange;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.elim-btn {
+    color: gray;
+}
+
+.txt-title {
+    font-size: 20px;
+    color: #e7600f;
+}
+
+.opt-envio {
+    color: #e7600f;
+    font-weight: bold;
+}
+
+.opt-envio:hover {
+    cursor: pointer;
+}
+
+.select {
+    box-shadow: 0 0 5px #e7600f;
+}
+
+p {
+    font-size: larger;
+}
+
+.ver-mas {
+    border-color: #e7600f;
+    width: 160px;
+}
+
+.ver-mas:hover {
+    background-color: #e7600f;
+    color: #fff;
+}

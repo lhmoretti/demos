@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Lista de empleados</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button [routerLink]="['/main/empleados/crud-empleados',0]">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+    <ion-list>
+        <ion-item-sliding *ngFor="let empleado of arrEmpleados">
+            <ion-item-options side="start">
+                <ion-item-option (click)="edit(empleado._id)"
+                    >Editar</ion-item-option
+                >
+            </ion-item-options>
+
+            <ion-item>
+                <ion-label
+                    >{{empleado.nombre}}, {{empleado.apellido}}</ion-label
+                >
+                <div slot="end">{{empleado.role}}</div>
+            </ion-item>
+
+            <ion-item-options side="end">
+                <ion-item-option color="danger" (click)="delete(empleado)"
+                    >Eliminar</ion-item-option
+                >
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,193 @@
+<div *ngIf="showForm" class="container">
+    <div class="alert alert-info text-center mt-2" role="alert">
+        <div class="container">
+            <form [formGroup]="ArticulosForm" (ngSubmit)="update()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Nombre: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="nombre"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Descripcón: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="descripcion"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Precio Costo: </label>
+                        <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            formControlName="precio_costo"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Precio Venta: </label>
+                        <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            formControlName="precio_venta"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label> Precio Oferta: </label>
+                        <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            formControlName="precio_oferta"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Destacado: </label>
+                        <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            formControlName="destacado"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Oferta: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="oferta"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Inicio: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="inicio"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Disponible: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="disponible"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Rebaja: </label>
+                        <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            formControlName="rebaja"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>SKU: </label>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            formControlName="sku"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Ranking: </label>
+                        <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            formControlName="ranking"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Stock: </label>
+                        <input
+                            type="number"
+                            class="form-control form-control-sm"
+                            formControlName="stock_actual"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-6">
+                        <div formArrayName="colores">
+                            <div
+                                *ngFor="let cols of ArticulosForm['controls'].colores['controls']; let i=index"
+                            >
+                                <div formGroupName="{{i}}">
+                                    <input
+                                        type="text"
+                                        formControlName="color"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div formArrayName="talles">
+                            <div
+                                *ngFor="let tal of ArticulosForm['controls'].talles['controls']; let it=index"
+                            >
+                                <div formGroupName="{{it}}">
+                                    <input
+                                        type="text"
+                                        formControlName="talle"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div formGroupName="marca" class="col-md-12 col-sm-12">
+                        <label>Marca: </label>
+                        <input
+                            type="text"
+                            formControlName="marca"
+                            class="form-control form-control-sm"
+                        />
+                    </div>
+                    <br />
+                    <div formGroupName="categoria" class="col-md-12 col-sm-12">
+                        <label> Categoría: </label>
+                        <input
+                            type="text"
+                            formControlName="categoria"
+                            class="form-control form-control-sm"
+                        />
+                        <label> Tipo: </label>
+                        <input
+                            type="text"
+                            formControlName="tipo"
+                            class="form-control form-control-sm"
+                        />
+                    </div>
+                    <button class="btn btn-outline-info btn-sm">
+                        añadir imagen
+                    </button>
+
+                    <div class="col-md-6">
+                        <label>Confirmar:</label>
+                        <button
+                            type="submit"
+                            class="btn btn-sm btn-primary btn-block float-right"
+                            [disabled]="!ArticulosForm.valid"
+                        >
+                            Confirmar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

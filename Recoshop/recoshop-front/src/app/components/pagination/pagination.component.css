@@ -1,0 +1,25 @@
+.btn-flechas {
+    border: #e7600f solid;
+    background-color: #e7600f;
+    color: white;
+    padding: 7px;
+}
+.btn-flechas:hover {
+    cursor: pointer;
+}
+
+.btn-disabled {
+    background-color: #e7600f;
+    opacity: 0.5;
+}
+.btn-disabled:hover {
+    cursor: not-allowed;
+}
+
+.paginina {
+    color: #e7600f;
+    margin-top: 6px;
+    margin-left: 7px;
+    margin-right: 7px;
+    padding: 7px;
+}

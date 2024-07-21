@@ -1,0 +1,13 @@
+.btn-size {
+    width: 200px;
+}
+
+.a-link {
+    color: #e7600f;
+}
+
+.a-link:hover {
+    color: #e7600f;
+    cursor: pointer;
+    text-decoration: underline;
+}

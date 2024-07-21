@@ -1,0 +1,13 @@
+<button
+    [disabled]="blockBtn"
+    class="btn btn-sm btn-primary float-right"
+    (click)="next()"
+>
+    <i class="fas fa-angle-right"></i>
+</button>
+<span class="float-right mb-2 mr-2 ml-2">
+    <small> Pág. {{ pageModel.pageNro + 1 }} </small>
+</span>
+<button class="btn btn-sm btn-primary float-right" (click)="back()">
+    <i class="fas fa-angle-left"></i>
+</button>

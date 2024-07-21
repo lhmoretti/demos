@@ -1,0 +1,25 @@
+<div class="container mb-4 mt-4">
+    <div class="row">
+        <div class="col-md-3 mt-3" *ngFor="let categoria of categorias">
+            <div
+                class="card text-center cont-categoria p-3"
+                (click)="verProdsCategoria(categoria)"
+            >
+                <div class="imagen-box-categoria">
+                    <img
+                        width="70px"
+                        [src]="
+                            categoria.url_img
+                                ? 'https://your-domain.com.ar/imagenes/categorias/' +
+                                  categoria.url_img
+                                : 'assets/imgs/sin-foto-150x150.gif'
+                        "
+                    />
+                </div>
+                <div class="desc-box-categoria">
+                    {{ categoria.categoria }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+.icons {
+    margin-left: 9px;
+}
+
+.ped-icon {
+    margin-left: 12px;
+}
+
+.dir {
+    cursor: pointer;
+    width: 200px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 40px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background: #0f2027; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+        to top,
+        #2c5364,
+        #203a43,
+        #0f2027
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+        to top,
+        #2c5364,
+        #203a43,
+        #0f2027
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    overflow-x: hidden;
+    transition: 0.5s;
+    /* padding-top: 60px; */
+}
+
+.sidenav p {
+    color: #c5c5c5;
+    cursor: pointer;
+    display: block;
+}
+
+.sidenav .dir:hover {
+    color: #ffffff;
+    transition: 0.5s;
+    background: #e5610f;
+}
+
+.sidenav .closebtn {
+    font-size: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    margin-left: 40px;
+    color: #f1f1f1;
+}
+
+@media screen and (max-height: 450px) {
+    /* .sidenav {
+    padding-top: 15px;
+  } */
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+div::-webkit-scrollbar {
+    display: none;
+}
+
+.animated {
+    margin-top: 65px;
+    position: absolute;
+}
+
+img {
+    position: absolute;
+}
+
+span {
+    margin-left: 5px;
+}
+
+.active {
+    background-color: rgb(90 90 90);
+}

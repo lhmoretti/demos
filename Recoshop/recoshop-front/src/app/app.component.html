@@ -1,0 +1,15 @@
+<div class="contianer-fluid">
+    <app-header class="d-none d-sm-none d-md-block"></app-header>
+
+    <app-header-mobile
+        class="sticky-top d-block d-sm-block d-md-none"
+    ></app-header-mobile>
+</div>
+
+<div class="max-content contianer-fluid">
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+</div>
+
+<div class="contianer-fluid">
+    <app-footer></app-footer>
+</div>

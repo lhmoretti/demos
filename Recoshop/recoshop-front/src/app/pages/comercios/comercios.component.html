@@ -1,0 +1,29 @@
+<div class="container mb-5 mt-5">
+    <div class="card-columns box-lista-comercios">
+        <div class="card rounded-0" *ngFor="let comercio of arrComercios">
+            <img
+                [src]="
+                    comercio.avatar
+                        ? comercio.avatar
+                        : 'assets/imgs/150x150.png'
+                "
+                class="ml-2 img-logo"
+            />
+            <div class="card-body float-left">
+                <h5
+                    class="card-title txt-title"
+                    (click)="verComercio(comercio.id, comercio.nombre)"
+                >
+                    {{ comercio.nombre }}
+                </h5>
+                <p class="card-text">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ comercio.domicilio }}
+                </p>
+                <p class="card-text">
+                    <i class="fas fa-phone"></i> {{ comercio.telefono }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+<app-pagination></app-pagination>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Fecha y hora</th>
+            <th scope="col">Modo de entrega</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Total</th>
+            <th scope="col">Ver pedido</th>
+        </tr>
+    </thead>
+    <tbody *ngIf="arrPedidos.length != 0">
+        <tr *ngFor="let pedido of arrPedidos; index as i">
+            <th scope="row">{{ pedido.id }}</th>
+            <td>{{ pedido.fecha_hora | date : 'medium' }}</td>
+            <td>{{ pedido.modo_entrega }}</td>
+            <td class="bg-primary text-light" *ngIf="pedido.estado == 'P'">
+                PENDIENTE
+            </td>
+            <td class="bg-danger text-light" *ngIf="pedido.estado == 'C'">
+                CANCELADO
+            </td>
+            <td class="bg-success text-light" *ngIf="pedido.estado == 'E'">
+                ENTREGADO
+            </td>
+            <td class="bg-warning text-dark" *ngIf="pedido.estado == 'D'">
+                DESPACHADO
+            </td>
+            <td>{{ pedido.total | currency : 'ARS' }}</td>
+            <td>
+                <button
+                    class="btn bg-orange rounded-0"
+                    (click)="verPedido(pedido)"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                >
+                    <i class="fas fa-eye"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="alert" *ngIf="arrPedidos.length == 0">
+    <p class="mt-2">NO HAY MAS PEDIDOS PARA CARGAR</p>
+</div>
+
+<div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Pedido Nro {{ Pedido.id }}
+                </h5>
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="
+                                let linea of Pedido.pedido_lineas;
+                                index as i
+                            "
+                        >
+                            <th scope="row">{{ i + 1 }}</th>
+                            <td>{{ linea.nombre }}</td>
+                            <td>X{{ linea.cantidad }}</td>
+                            <td>{{ linea.precio_venta | currency : 'ARS' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="float-right">
+                    <p>Total: {{ Pedido.total | currency : 'ARS' }}</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn bg-orange rounded-0"
+                    data-dismiss="modal"
+                >
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

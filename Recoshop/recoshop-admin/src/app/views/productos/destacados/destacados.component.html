@@ -1,0 +1,63 @@
+<section>
+    <div class="row mt-3">
+        <div class="table-responsive text-nowrap text-center">
+            <table class="table table-sm table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Precio Venta</th>
+                        <th scope="col">Destacado</th>
+                        <th scope="col">Promoción</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of arrProductos">
+                        <td>{{ p.nombre }}</td>
+                        <td>{{ p.descripcion | slice : 0 : 13 }}</td>
+                        <td>{{ p.stock_actual }}</td>
+                        <td>
+                            {{ p.precio_lista | currency : 'ARS' : 'symbol' }}
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                [(ngModel)]="p.destacado"
+                                disabled
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                [(ngModel)]="p.promocion"
+                                disabled
+                            />
+                        </td>
+                        <td>
+                            <button
+                                class="btn btn-primary btn-sm m-1"
+                                (click)="passArt(p)"
+                            >
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button
+                                class="btn btn-danger btn-sm m-1"
+                                (click)="delete(p.id)"
+                            >
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div *ngIf="showLoading" class="mt-3">
+                <img src="assets/images/loading.gif" width="120" height="120" />
+            </div>
+        </div>
+    </div>
+</section>

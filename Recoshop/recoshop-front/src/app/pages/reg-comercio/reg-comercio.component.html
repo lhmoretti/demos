@@ -1,0 +1,297 @@
+<div class="container p-3">
+    <div class="card text-center p-2">
+        <h3 class="mb-5">Estás registrado en Recoshop</h3>
+        <div class="cont-nivel">
+            <i
+                class="icon-size mt-4 ml-3 mr-4 float-left fas fa-user fa-lg"
+                *ngIf="Usuario.role == 3"
+            ></i>
+            <i
+                class="icon-size mt-4 ml-3 mr-4 float-left fas fa-user-tie fa-lg"
+                *ngIf="Usuario.role == 2"
+                style="color: #5d95d2"
+            ></i>
+
+            <h5 class="mt-3 text-left" *ngIf="Usuario.role == 3">
+                Estás en Nivel 1
+            </h5>
+            <h5
+                class="mt-3 text-left"
+                *ngIf="Usuario.role == 2"
+                style="color: #5d95d2"
+            >
+                Estás en Nivel 2
+            </h5>
+
+            <p class="text-left" *ngIf="Usuario.role == 3">
+                Usuario para compras
+            </p>
+            <p
+                class="text-left"
+                *ngIf="Usuario.role == 2"
+                style="color: #5d95d2"
+            >
+                Usuario Vendedor
+            </p>
+        </div>
+
+        <p *ngIf="Usuario.role == 3">¿Te gustaría vender?</p>
+        <p *ngIf="Usuario.role == 2">¿Querés agregar otro comercio?</p>
+        <a
+            class="txt-link"
+            data-toggle="collapse"
+            href="#collapseForm"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+            >Si, quiero darme de alta</a
+        >
+
+        <div class="collapse" id="collapseForm">
+            <form
+                (ngSubmit)="registrarComercio(fRegComercio)"
+                #fRegComercio="ngForm"
+            >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input
+                                type="text"
+                                [(ngModel)]="Comercio.nombre"
+                                autocomplete="new-password"
+                                name="nombreFantasia"
+                                placeholder="Ingrese el nombre de su comercio"
+                                class="form-control mt-3 input rounded-0"
+                                required
+                            />
+                        </div>
+
+                        <div class="col-md-6">
+                            <input
+                                type="text"
+                                [(ngModel)]="Comercio.cuit"
+                                maxlength="11"
+                                minlength="11"
+                                autocomplete="new-password"
+                                name="cuitcuil"
+                                placeholder="Ingrese su CUIT / CUIL"
+                                class="form-control mt-3 input rounded-0"
+                                required
+                            />
+                        </div>
+                        <div class="col-md-6">
+                            <input
+                                type="text"
+                                [(ngModel)]="Comercio.domicilio"
+                                autocomplete="new-password"
+                                name="direccion"
+                                placeholder="Ingrese su dirección"
+                                class="form-control mt-3 input rounded-0"
+                                required
+                            />
+                        </div>
+                        <div class="col-md-6">
+                            <input
+                                type="text"
+                                [(ngModel)]="Comercio.telefono"
+                                autocomplete="new-password"
+                                name="telefono"
+                                placeholder="Ingrese su teléfono"
+                                maxlength="13"
+                                class="form-control mt-3 input rounded-0"
+                                required
+                            />
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group form-check float-left mt-3">
+                                <input
+                                    type="checkbox"
+                                    name="checkSociocic"
+                                    [(ngModel)]="Comercio.socio_cic"
+                                    class="form-check-input"
+                                    id="exampleCheck1"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="exampleCheck1"
+                                    >Soy socio del Centro Industrial y Comercial
+                                    Reconquista</label
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select
+                                    [(ngModel)]="Localidad"
+                                    name="localRs"
+                                    class="form-control rounded-0 mt-3"
+                                    id="exampleFormControlSelect1"
+                                    required
+                                >
+                                    <option value="SL" selected disabled>
+                                        Seleccionar localidad
+                                    </option>
+                                    <option
+                                        *ngFor="let localidad of arrLocalidades"
+                                        [value]="localidad"
+                                    >
+                                        {{ localidad }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div
+                                class="alert alert-info text-justify"
+                                role="alert"
+                            >
+                                <ul>
+                                    <li>
+                                        Recoshop está disponible para el
+                                        registro de todos los negocios de
+                                        Reconquista, Avellaneda y zonas
+                                        aledañas.<br />
+                                        ¡Seleccioná el plan que mejor se adapte
+                                        a tus necesidades y comenzá a vender
+                                        online!
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div
+                                class="card cont-plan"
+                                (click)="selectPlan('N')"
+                                [ngClass]="{ 'select-plan': planNegocio }"
+                            >
+                                <div class="card-header bg-orange">
+                                    <h4>Negocio</h4>
+                                </div>
+
+                                <div class="card-body">
+                                    <h4>$500.00.-</h4>
+                                    <p>
+                                        <i
+                                            class="fas fa-check text-success"
+                                        ></i>
+                                        25 publicaciones activas
+                                    </p>
+                                    <p>
+                                        <i
+                                            class="fas fa-check text-success"
+                                        ></i>
+                                        Chat soporte técnico
+                                    </p>
+                                    <p>
+                                        <i
+                                            class="fas fa-check text-success"
+                                        ></i>
+                                        2% cómision por ventas
+                                    </p>
+                                    <p>Si sos de Reconquista</p>
+                                    <p>
+                                        Requisitos para adquirir PLAN NEGOCIO:
+                                    </p>
+                                    <p>Ser socio del CIC Reconquista</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PLAN CORPORATIVO -->
+                        <div class="col-md-4">
+                            <div
+                                class="card cont-plan"
+                                (click)="selectPlan('C')"
+                                [ngClass]="{ 'select-plan': planCorporativo }"
+                            >
+                                <div class="card-header bg-orange">
+                                    <h4>Corporativo</h4>
+                                </div>
+
+                                <div class="card-body">
+                                    <h4>$999.00.-</h4>
+                                    <p>Abono fijo x mes</p>
+                                    <p>
+                                        <i
+                                            class="fas fa-check text-success"
+                                        ></i>
+                                        40 publicaciones activas
+                                    </p>
+                                    <p>
+                                        <i
+                                            class="fas fa-check text-success"
+                                        ></i>
+                                        Chat soporte técnico
+                                    </p>
+                                    <p>
+                                        <i
+                                            class="fas fa-check text-success"
+                                        ></i>
+                                        1% cómision por ventas
+                                    </p>
+                                    <p>Socio del CIC -20% DESC.</p>
+                                    <p>en el abono mensual($799)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- PLAN CORPORATIVO -->
+
+                        <!-- PLAN EMPRESA -->
+                        <div class="col-md-4">
+                            <div
+                                class="card cont-plan"
+                                (click)="selectPlan('E')"
+                                [ngClass]="{ 'select-plan': planEmpresa }"
+                            >
+                                <div class="card-header bg-orange">
+                                    <h4>Empresa</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4>$2500.00.-</h4>
+                                    <p>Abono fijo x mes</p>
+
+                                    <p>
+                                        <i
+                                            class="fas fa-check text-success"
+                                        ></i>
+                                        Asistencia personalizada
+                                    </p>
+                                    <p>
+                                        <i
+                                            class="fas fa-check text-success"
+                                        ></i>
+                                        Publicaciones ilimitadas
+                                    </p>
+                                    <p>
+                                        <i
+                                            class="fas fa-check text-success"
+                                        ></i>
+                                        Chat soporte técnico
+                                    </p>
+                                    <p>
+                                        <i
+                                            class="fas fa-check text-success"
+                                        ></i>
+                                        0.5% cómision por ventas
+                                    </p>
+                                    <p>Socio del CIC -20% DESC.</p>
+                                    <p>en el abono mensual($2000)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIN PLAN EMPRESA -->
+
+                        <div class="col-md-12 mt-3">
+                            <button class="btn float-right bg-orange">
+                                CONFIRMAR DATOS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
